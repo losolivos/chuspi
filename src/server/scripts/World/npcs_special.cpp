@@ -3867,66 +3867,29 @@ class npc_wild_mushroom : public CreatureScript
 
         struct npc_wild_mushroomAI : public ScriptedAI
         {
-            uint32 invisTimer;
+            uint32 CastTimer;
+            bool stealthed;
 
             npc_wild_mushroomAI(Creature *creature) : ScriptedAI(creature)
             {
-                invisTimer = 6000;
+                CastTimer = 6000;
+                stealthed = false;
+                me->SetReactState(REACT_PASSIVE);
             }
 
-            void Reset()
+            void UpdateAI(const uint32 diff)
             {
-                Unit* owner = me->GetOwner();
-                if (!owner)
-                    return;
-
-                me->SetLevel(owner->getLevel());
-                me->SetMaxHealth(5);
-                me->setFaction(owner->getFaction());
-                me->CastSpell(me, 94081, true); // Wild Mushroom : Detonate Birth Visual
-            }
-
-            void IsSummonedBy(Unit* summoner)
-            {
-                if (!summoner)
-                    return;
-
-                if (Player* owner = summoner->ToPlayer())
+                if (CastTimer <= diff && !stealthed)
                 {
-                    if (owner->HasAura(145529) && owner->GetSpecializationId(owner->GetActiveSpec()) == SPEC_DRUID_RESTORATION)
-                    {
-                        owner->RemoveDynObject(81262);
-                        owner->CastSpell(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), 81262, true);
-                        if (DynamicObject* dynObj = owner->GetDynObject(81262))
-                            dynObj->SetDuration(-1);
-                        if (Aura* aura = owner->GetAura(81262))
-                        {
-                            aura->SetDuration(-1);
-                            aura->SetMaxDuration(-1);
-                        }
-                    }
+                    DoCast(me, WILD_MUSHROOM_INVISIBILITY, true);
+                    stealthed = true;
                 }
-                
-            }
-
-            void JustUnsummoned(Unit* owner)
-            {
-                if (DynamicObject* dynObj = owner->GetDynObject(81262))
-                    dynObj->Remove();
-            }
-
-            void UpdateAI(uint32 const diff)
-            {
-                if (invisTimer > 0)
+                else
                 {
-                    if (invisTimer > diff)
-                        invisTimer -= diff;
-                    else
-                    {
-                        invisTimer = 0;
-                        DoCast(me, 92661);
-                    }
-                    return;
+                    CastTimer -= diff;
+
+                    if (!stealthed)
+                        me->RemoveAura(WILD_MUSHROOM_INVISIBILITY);
                 }
             }
         };
@@ -3937,26 +3900,59 @@ class npc_wild_mushroom : public CreatureScript
         }
 };
 
+/*######
+## npc_fungal_growth
+######*/
+
+#define FUNGAL_GROWTH_PERIODIC  81282
+#define FUNGAL_GROWTH_AREA      94339
+
 class npc_fungal_growth : public CreatureScript
 {
     public:
         npc_fungal_growth() : CreatureScript("npc_fungal_growth") { }
 
-        struct npc_fungal_growthAI : public PassiveAI
+        struct npc_fungal_growthAI : public Scripted_NoMovementAI
         {
-            npc_fungal_growthAI(Creature* creature) : PassiveAI(creature)
+            npc_fungal_growthAI(Creature *c) : Scripted_NoMovementAI(c)
             {
-                DoCast(me, 94339, false);
-                DoCast(me, 81282, true);
-                me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PVP_ATTACKABLE);
+                me->SetReactState(REACT_PASSIVE);
+                me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
+                me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
             }
 
-            void EnterEvadeMode() {}
+            void Reset()
+            {
+                me->SetReactState(REACT_PASSIVE);
+                me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
+                me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
+            }
+
+            void InitializeAI()
+            {
+                ScriptedAI::InitializeAI();
+                Unit * owner = me->GetOwner();
+                if (!owner || owner->GetTypeId() != TYPEID_PLAYER)
+                    return;
+
+                me->SetReactState(REACT_PASSIVE);
+                me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
+                me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
+
+                me->CastSpell(me, FUNGAL_GROWTH_PERIODIC, true);    // Periodic Trigger spell : decrease speed
+                me->CastSpell(me, FUNGAL_GROWTH_AREA, true);        // Persistent Area
+            }
+
+            void UpdateAI(const uint32 diff)
+            {
+                if (!me->HasAura(FUNGAL_GROWTH_PERIODIC))
+                    me->CastSpell(me, FUNGAL_GROWTH_PERIODIC, true);
+            }
         };
 
-        CreatureAI* GetAI(Creature* creature) const
+        CreatureAI* GetAI(Creature* pCreature) const
         {
-            return new npc_fungal_growthAI(creature);
+            return new npc_fungal_growthAI(pCreature);
         }
 };
 
