@@ -3151,3 +3151,14 @@ Vip.Exchange.Frost.Command         = 0
 Vip.Rate.Exchange.Honor.In.Arena   = 1
 Vip.Rate.Exchange.Triumph.In.Frost = 1
 ###################################################################################################
+###################################################################################################
+#
+# CROSSFACTION BG CONFIG
+#
+#    CrossFactionBG.Enable = 1 - Mixed battleground enabled.
+#    CrossFactionBG.Enable = 0 - Mixed battleground disabled.
+#
+CrossFactionBG.Enable = 0
+#
+#
+###################################################################################################
