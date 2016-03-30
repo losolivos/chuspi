@@ -713,9 +713,8 @@ void Object::BuildDynamicValuesUpdate(ByteBuffer* data) const
     for (uint32 i = 0; i < _dynamicTabCount; ++i)
     {
         for (size_t index = 0; index < DynamicFields::COUNT; ++index)
-            if (GetTypeId() != TYPEID_ITEM)
-                if (_dynamicFields[i].isChanged(index))
-                    dynamicFieldsMask[i] |= 1 << index;
+            if (_dynamicFields[i].isChanged(index))
+                dynamicFieldsMask[i] |= 1 << index;
 
         if (dynamicFieldsMask[i] != 0)
             dynamicTabMask |= 1 << i;

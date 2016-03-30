@@ -4377,7 +4377,9 @@ void Unit::RemoveAreaAurasDueToLeaveWorld()
     for (AuraApplicationMap::iterator iter = m_appliedAuras.begin(); iter != m_appliedAuras.end();)
     {
         if (iter->second->GetBase()->GetOwner() != this)
+        {
             RemoveAura(iter);
+        }
         else
             ++iter;
     }
@@ -14038,8 +14040,8 @@ void Unit::SetInCombatState(bool PvP, Unit* enemy, bool isControlled)
     {
         // Set home position at place of engaging combat for escorted creatures
         if ((IsAIEnabled && creature->AI()->IsEscorted()) ||
-            (GetMotionMaster() && (GetMotionMaster()->GetMotionSlotType(MOTION_SLOT_ACTIVE) == WAYPOINT_MOTION_TYPE ||
-            GetMotionMaster()->GetMotionSlotType(MOTION_SLOT_ACTIVE) == POINT_MOTION_TYPE)))
+            (GetMotionMaster() && (GetMotionMaster()->GetCurrentMovementGeneratorType() == WAYPOINT_MOTION_TYPE ||
+            GetMotionMaster()->GetCurrentMovementGeneratorType() == POINT_MOTION_TYPE)))
             creature->SetHomePosition(GetPositionX(), GetPositionY(), GetPositionZ(), GetOrientation());
 
         if (enemy)
@@ -15938,7 +15940,7 @@ void Unit::SetHealth(uint32 val)
 {
     if (getDeathState() == JUST_DIED)
         val = 0;
-    else if (GetTypeId() == TYPEID_PLAYER && (getDeathState() == DEAD || getDeathState() == CORPSE))
+    else if (GetTypeId() == TYPEID_PLAYER && getDeathState() == DEAD)
         val = 1;
     else
     {
