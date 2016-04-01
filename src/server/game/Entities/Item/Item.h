@@ -383,7 +383,6 @@ class Item : public Object
         bool IsPvPItem() const;
         bool IsStuffItem() const;
         bool CanUpgrade() const;
-		bool IsLegendaryWeapon() const;
         bool IsLegendaryCloak() const;
 
     private:

@@ -3872,6 +3872,14 @@ void Player::GiveLevel(uint8 level)
             AddQuest(quest, NULL);
     }
 
+    if (level >= 90)
+    {
+        uint32 const idQuest = (TeamForRace(getRace()) == RACE_PANDAREN_NEUTRAL) ? 31450 : 31450;
+        auto const quest = sObjectMgr->GetQuestTemplate(idQuest);
+        if (quest && GetQuestStatus(quest) == QUEST_STATUS_NONE)
+            AddQuest(quest, NULL);
+    }
+
     sScriptMgr->OnPlayerLevelChanged(this, oldLevel);
 }
 

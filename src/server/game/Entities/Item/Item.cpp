@@ -1283,9 +1283,6 @@ bool Item::CanBeTransmogrified() const
     if (!proto)
         return false;
 
-    if (proto->Quality == ITEM_QUALITY_LEGENDARY && !IsLegendaryWeapon())
-        return false;
-
     if (proto->Class != ITEM_CLASS_ARMOR &&
         proto->Class != ITEM_CLASS_WEAPON)
         return false;
@@ -1310,9 +1307,6 @@ bool Item::CanTransmogrify() const
         return false;
 
     if (proto->Flags2 & ITEM_FLAGS_EXTRA_CANNOT_TRANSMOG)
-        return false;
-
-    if (proto->Quality == ITEM_QUALITY_LEGENDARY && !IsLegendaryWeapon())
         return false;
 
     if (proto->Class != ITEM_CLASS_ARMOR &&
@@ -1733,28 +1727,6 @@ bool Item::IsLegendaryCloak() const
         case 102248: // Fen-Yu, Fury of Xuen
         case 102249: // Gong-Lu, Strength of Xuen
         case 102250: // Qian-Ying, Fortitude of Niuzao
-            return true;
-        default:
-            break;
-    }
-
-    return false;
-}
-
-bool Item::IsLegendaryWeapon() const
-{
-    ItemTemplate const* proto = GetTemplate();
-    if (!proto)
-        return false;
-
-    switch (proto->ItemId)
-    {
-        case 49623: // Shadowmourne
-        case 17182: // Sulfuras, Hand of Ragnaros
-        case 34334: // Thori'dal, the Stars' Fury
-        case 19019: // Thunderfury, Blessed Blade of the Windseeker
-        case 46017: // Val'anyr, Hammer of Ancient Kings
-        case 13262: // Ashbringer
             return true;
         default:
             break;
