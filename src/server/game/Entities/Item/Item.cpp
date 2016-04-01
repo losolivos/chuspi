@@ -1283,6 +1283,9 @@ bool Item::CanBeTransmogrified() const
     if (!proto)
         return false;
 
+    if (proto->Quality == ITEM_QUALITY_LEGENDARY)
+        return false;
+
     if (proto->Class != ITEM_CLASS_ARMOR &&
         proto->Class != ITEM_CLASS_WEAPON)
         return false;
@@ -1307,6 +1310,9 @@ bool Item::CanTransmogrify() const
         return false;
 
     if (proto->Flags2 & ITEM_FLAGS_EXTRA_CANNOT_TRANSMOG)
+        return false;
+
+    if (proto->Quality == ITEM_QUALITY_LEGENDARY)
         return false;
 
     if (proto->Class != ITEM_CLASS_ARMOR &&

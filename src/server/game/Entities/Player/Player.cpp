@@ -1299,6 +1299,22 @@ bool Player::Create(uint32 guidlow, CharacterCreateInfo* createInfo)
             this->AddQuestAndCheckCompletion(quest, NULL);
     }
 
+    if (createInfo->Race == RACE_PANDAREN_NEUTRAL)
+    {
+        Quest const* questo = NULL;
+        switch (createInfo->Class)
+        {
+            case CLASS_WARRIOR: questo = sObjectMgr->GetQuestTemplate(31450); break;
+            case CLASS_SHAMAN: questo = sObjectMgr->GetQuestTemplate(31450); break;
+            case CLASS_ROGUE: questo = sObjectMgr->GetQuestTemplate(31450); break;
+            case CLASS_PRIEST: questo = sObjectMgr->GetQuestTemplate(31450); break;
+            case CLASS_HUNTER: questo = sObjectMgr->GetQuestTemplate(31450); break;
+            case CLASS_MAGE: questo = sObjectMgr->GetQuestTemplate(31450); break;
+            case CLASS_MONK: questo = sObjectMgr->GetQuestTemplate(31450); break;
+            default: break;
+        }
+    }
+
     return true;
 }
 
@@ -3867,14 +3883,6 @@ void Player::GiveLevel(uint8 level)
     if (level >= 85)
     {
         uint32 const idQuest = (TeamForRace(getRace()) == ALLIANCE) ? 29547 : 29611;
-        auto const quest = sObjectMgr->GetQuestTemplate(idQuest);
-        if (quest && GetQuestStatus(quest) == QUEST_STATUS_NONE)
-            AddQuest(quest, NULL);
-    }
-
-    if (level >= 90)
-    {
-        uint32 const idQuest = (TeamForRace(getRace()) == RACE_PANDAREN_NEUTRAL) ? 31450 : 31450;
         auto const quest = sObjectMgr->GetQuestTemplate(idQuest);
         if (quest && GetQuestStatus(quest) == QUEST_STATUS_NONE)
             AddQuest(quest, NULL);
