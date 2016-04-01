@@ -1,0 +1,2 @@
+-- panda npc para escojer faccion al iniciar
+insert into `creature` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `npcflag2`, `unit_flags`, `unit_flags2`, `dynamicflags`, `isActive`, `protec_anti_doublet`) values('NULL','56013','860','0','0','1','9','0','0','1463.71','3468.53','181.62','6.01327','300','0','0','393941','0','0','0','0','0','2048','0','0',NULL);
