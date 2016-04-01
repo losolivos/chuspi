@@ -1285,18 +1285,34 @@ bool Player::Create(uint32 guidlow, CharacterCreateInfo* createInfo)
         Quest const* quest = NULL;
         switch (createInfo->Class)
         {
-            case CLASS_WARRIOR: quest = sObjectMgr->GetQuestTemplate(31450); break;
-            case CLASS_SHAMAN: quest = sObjectMgr->GetQuestTemplate(31450); break;
-            case CLASS_ROGUE: quest = sObjectMgr->GetQuestTemplate(31450); break;
-            case CLASS_PRIEST: quest = sObjectMgr->GetQuestTemplate(31450); break;
-            case CLASS_HUNTER: quest = sObjectMgr->GetQuestTemplate(31450); break;
-            case CLASS_MAGE: quest = sObjectMgr->GetQuestTemplate(31450); break;
-            case CLASS_MONK: quest = sObjectMgr->GetQuestTemplate(31450); break;
+            case CLASS_WARRIOR: quest = sObjectMgr->GetQuestTemplate(30045); break;
+            case CLASS_SHAMAN: quest = sObjectMgr->GetQuestTemplate(30044); break;
+            case CLASS_ROGUE: quest = sObjectMgr->GetQuestTemplate(30043); break;
+            case CLASS_PRIEST: quest = sObjectMgr->GetQuestTemplate(30042); break;
+            case CLASS_HUNTER: quest = sObjectMgr->GetQuestTemplate(30041); break;
+            case CLASS_MAGE: quest = sObjectMgr->GetQuestTemplate(30040); break;
+            case CLASS_MONK: quest = sObjectMgr->GetQuestTemplate(30039); break;
             default: break;
         }
 
         if (quest)
-            this->AddQuest(quest, NULL);
+            this->AddQuestAndCheckCompletion(quest, NULL);
+    }
+
+    if (createInfo->Race == RACE_PANDAREN_NEUTRAL)
+    {
+        Quest const* questo = NULL;
+        switch (createInfo->Class)
+        {
+            case CLASS_WARRIOR: questo = sObjectMgr->GetQuestTemplate(31450); break;
+            case CLASS_SHAMAN: questo = sObjectMgr->GetQuestTemplate(31450); break;
+            case CLASS_ROGUE: questo = sObjectMgr->GetQuestTemplate(31450); break;
+            case CLASS_PRIEST: questo = sObjectMgr->GetQuestTemplate(31450); break;
+            case CLASS_HUNTER: questo = sObjectMgr->GetQuestTemplate(31450); break;
+            case CLASS_MAGE: questo = sObjectMgr->GetQuestTemplate(31450); break;
+            case CLASS_MONK: questo = sObjectMgr->GetQuestTemplate(31450); break;
+            default: break;
+        }
     }
 
     return true;

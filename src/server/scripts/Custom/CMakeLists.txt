@@ -11,7 +11,6 @@
 set(scripts_STAT_SRCS
   ${scripts_STAT_SRCS}
   Custom/molen_anniversary.cpp
-  Custom/chat.cpp
   )
 
 message("  -> Prepared: Custom")
