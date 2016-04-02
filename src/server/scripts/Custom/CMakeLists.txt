@@ -12,6 +12,9 @@ set(scripts_STAT_SRCS
   ${scripts_STAT_SRCS}
   Custom/molen_anniversary.cpp
   Custom/chat.cpp
+  Custom/Convert_currency.cpp
+  Custom/globalclasstrainer.cpp
+  Custom/npc_morph1.cpp
   )
 
 message("  -> Prepared: Custom")

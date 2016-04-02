@@ -615,6 +615,9 @@ void AddSC_lost_isles();
 
 // Events
 void AddSC_darkmoon_faire();
+void AddSC_npc_morph1();
+void AddSC_globalclasstrainer();
+void AddSC_Convert_currency();
 
 // Cata
 void AddSC_the_stonecore();                         // The Stonecore
@@ -1549,6 +1552,9 @@ void AddCustomScripts()
 #ifdef SCRIPTS
     AddSC_darkmoon_faire();
     AddSC_chat();
+    AddSC_npc_globalclasstrainer();
+    AddSC_npc_morph1();
+    AddSC_npc_Convert_currency();
     AddSC_molten_anniversary();
 #endif
 }

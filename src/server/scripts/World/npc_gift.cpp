@@ -79,15 +79,12 @@ public:
             }
             if (_access) { player->AddItem(32458, 1); OnlyFirstGift.push_back(player->GetGUID()); }
             break;
-        case GOSSIP_ACTION_INFO_DEF + 1:
+        case GOSSIP_ACTION_INFO_DEF + 3:
             for (std::list<uint64>::iterator itr = OnlyFirstGift.begin(); itr != OnlyFirstGift.end(); ++itr)
             {
                 if (player->GetGUID() == *itr) { player->SendChatMessage("ya recibiste tu regalo!"); _access = false; break; }
             }
             if (_access) { player->AddItem(68823, 1); OnlyFirstGift.push_back(player->GetGUID()); }
-            break;
-        case GOSSIP_ACTION_INFO_DEF + 3:
-            player->CLOSE_GOSSIP_MENU();
             break;
         }
         return true;
