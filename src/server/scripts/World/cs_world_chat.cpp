@@ -124,5 +124,5 @@ class cs_world_chat : public CommandScript
  
 void AddSC_cs_world_chat()
 {
-        new cs_world_chat();
+    new cs_world_chat();
 }

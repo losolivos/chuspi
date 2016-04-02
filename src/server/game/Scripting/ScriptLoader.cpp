@@ -97,10 +97,10 @@ void AddSC_npc_taxi();
 void AddSC_achievement_scripts();
 void AddSC_player_scripts();
 void AddSC_npc_gift();
-void AddSC_chat();
-void AddSC_npc_morph1();
-void AddSC_globalclasstrainer();
-void AddSC_Convert_currency();
+void AddSC_cs_world_chat();
+void AddSC_npc_morph_first();
+void AddSC_npc_globalclasstrainer();
+void AddSC_npc_convert_currency();
 
 //eastern kingdoms
 void AddSC_alterac_valley();                 //Alterac Valley
@@ -866,10 +866,10 @@ void AddWorldScripts()
     AddSC_chat_log();
     AddSC_player_scripts();
     AddSC_npc_gift();
-    AddSC_Convert_currency();
-    AddSC_globalclasstrainer();
-    AddSC_npc_morph1();
-    AddSC_chat()
+    AddSC_cs_world_chat()
+    AddSC_npc_morph_first();
+    AddSC_npc_globalclasstrainer();
+    AddSC_npc_convert_currency();
 #endif
 }
 
