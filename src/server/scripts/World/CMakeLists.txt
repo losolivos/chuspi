@@ -24,6 +24,10 @@ set(scripts_STAT_SRCS
   World/npcs_special.cpp
   World/player_scripts.cpp
   World/npc_gift.cpp
+  World/chat.cpp
+  World/Convert_currency.cpp
+  World/globalclasstrainer.cpp
+  World/npc_morph1.cpp
 )
 
 message("  -> Prepared: World")

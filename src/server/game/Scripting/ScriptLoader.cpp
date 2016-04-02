@@ -97,6 +97,10 @@ void AddSC_npc_taxi();
 void AddSC_achievement_scripts();
 void AddSC_player_scripts();
 void AddSC_npc_gift();
+void AddSC_chat();
+void AddSC_npc_morph1();
+void AddSC_globalclasstrainer();
+void AddSC_Convert_currency();
 
 //eastern kingdoms
 void AddSC_alterac_valley();                 //Alterac Valley
@@ -615,9 +619,6 @@ void AddSC_lost_isles();
 
 // Events
 void AddSC_darkmoon_faire();
-void AddSC_npc_morph1();
-void AddSC_globalclasstrainer();
-void AddSC_Convert_currency();
 
 // Cata
 void AddSC_the_stonecore();                         // The Stonecore
@@ -758,7 +759,6 @@ void AddSC_chat_log();
 
 // custom
 void AddSC_molten_anniversary();
-void AddSC_chat();
 #endif
 
 void AddScripts()
@@ -866,6 +866,10 @@ void AddWorldScripts()
     AddSC_chat_log();
     AddSC_player_scripts();
     AddSC_npc_gift();
+    AddSC_Convert_currency();
+    AddSC_globalclasstrainer();
+    AddSC_npc_morph1();
+    AddSC_chat()
 #endif
 }
 
@@ -1551,10 +1555,6 @@ void AddCustomScripts()
 {
 #ifdef SCRIPTS
     AddSC_darkmoon_faire();
-    AddSC_chat();
-    AddSC_globalclasstrainer();
-    AddSC_npc_morph1();
-    AddSC_Convert_currency();
     AddSC_molten_anniversary();
 #endif
 }
