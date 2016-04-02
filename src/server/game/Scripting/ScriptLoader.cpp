@@ -866,7 +866,7 @@ void AddWorldScripts()
     AddSC_chat_log();
     AddSC_player_scripts();
     AddSC_npc_gift();
-    AddSC_cs_world_chat()
+    AddSC_cs_world_chat();
     AddSC_npc_morph_first();
     AddSC_npc_globalclasstrainer();
     AddSC_npc_convert_currency();
