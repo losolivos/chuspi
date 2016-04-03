@@ -132,6 +132,51 @@ public:
     }
 };
 
+class npc_new_players_giftt : public CreatureScript
+{
+public:
+    npc_new_players_giftt()
+        : CreatureScript("npc_new_players_giftt") {}
+
+    bool OnGossipHello(Player* player, Creature* creature)
+    {
+
+        player->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, "Reclamar mi regalo!", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
+        player->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, "Salir de aqui", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 3);
+        player->SEND_GOSSIP_MENU(907, creature->GetGUID());
+
+        return true;
+    }
+    std::list<uint64> OnlyFirstGift;
+    bool _access;
+
+    bool OnGossipSelect(Player* player, Creature* creature, uint32 /*sender*/, uint32 action)
+    {
+        player->PlayerTalkClass->ClearMenus();
+        _access = true;
+
+        switch (action)
+        {
+        case GOSSIP_ACTION_INFO_DEF + 1:
+            for (std::list<uint64>::iterator itr = OnlyFirstGift.begin(); itr != OnlyFirstGift.end(); ++itr)
+            {
+                if (player->GetGUID() == *itr) { player->SendChatMessage("ya recibiste tu regalo!"); _access = false; break; }
+            }
+            if (_access) 
+            { 
+                player->AddItem(32458, 1);
+                player->AddItem(68823, 1);
+                OnlyFirstGift.push_back(player->GetGUID()); 
+            }
+            break;
+        case GOSSIP_ACTION_INFO_DEF + 3:
+            player->CLOSE_GOSSIP_MENU();
+            break;
+        }
+        return true;
+    }
+};
+
 class npc_new_players_gift : public CreatureScript
 {
 public:
@@ -400,6 +445,7 @@ void AddSC_npc_gift()
     new npc_giftt();
     new npc_jade_serpent_riding_skill();
     new npc_new_players_gift();
+    new npc_new_players_giftt();
     new npc_morpher();
     new test_npc_for();
 }
