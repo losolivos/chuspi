@@ -115,8 +115,8 @@ class cs_world_chat : public CommandScript
                         // GM
                         case SEC_GAMEMASTER:
                                 msg += "|cff00ff00[World]";
-								msg += "|cff00ffff[GM] ";
-								msg += " |TINTERFACE/CHATFRAME/UI-CHATICON-BLIZZ:15|t";
+                                msg += "|cff00ffff[GM] ";
+                                msg += " |TINTERFACE/CHATFRAME/UI-CHATICON-BLIZZ:15|t";
                                 msg += GetNameLink(player);
                                 msg += " |cfffaeb00";
                                 break;
