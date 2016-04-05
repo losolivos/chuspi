@@ -435,6 +435,42 @@ class item_sylvanas_music_box : public ItemScript
         }
 };
 
+// Schematic: Chief Engineer Jard's Journal - 143743
+class spell_gen_chief_engineer_journal : public SpellScriptLoader
+{
+    public:
+        spell_gen_chief_engineer_journal() : SpellScriptLoader("spell_gen_chief_engineer_journal") { }
+
+        class spell_gen_chief_engineer_journal_SpellScript : public SpellScript
+        {
+            PrepareSpellScript(spell_gen_chief_engineer_journal_SpellScript);
+
+            void HandleOnHit()
+            {
+                if (Player* _player = GetCaster()->ToPlayer())
+                {
+                    if (_player->HasSpell(110403))
+                        _player->learnSpell(139192, true);
+                        _player->learnSpell(139176, true);
+                        _player->learnSpell(139197, true);
+                        _player->learnSpell(139196, true);
+                        _player->learnSpell(143714, true);
+                        _player->SaveToDB();
+                }
+            }
+
+            void Register()
+            {
+                OnHit += SpellHitFn(spell_gen_chief_engineer_journal_SpellScript::HandleOnHit);
+            }
+        };
+
+        SpellScript* GetSpellScript() const
+        {
+            return new spell_gen_chief_engineer_journal_SpellScript();
+        }
+};
+
 void AddSC_item_scripts()
 {
     new item_only_for_flight();
@@ -449,4 +485,5 @@ void AddSC_item_scripts()
     new item_trident_of_nazjan();
     new item_captured_frog();
     new item_sylvanas_music_box();
+    new spell_gen_chief_engineer_journal();
 }

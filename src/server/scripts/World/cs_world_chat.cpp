@@ -91,7 +91,7 @@ class cs_world_chat : public CommandScript
                                 if (player->GetTeam() == ALLIANCE)
                                 {
                                         msg += "|cff00ff00[World]";
-                                        msg += "|cff0000ff|TInterface\\pvpframe\\PVPCurrency-Honor-Alliance:16|t";
+                                        msg += "|cff0000ff|TInterface\\pvpframe\\PVPCurrency-Honor-Alliance:25|t";
                                         msg += GetNameLink(player);
                                         msg += " |cfffaeb00";
                                 }
@@ -99,56 +99,56 @@ class cs_world_chat : public CommandScript
                                 else
                                 {
                                         msg += "|cff00ff00[World]";
-                                        msg += "|cffff0000|TInterface\\pvpframe\\PVPCurrency-Honor-Horde:16|t";
+                                        msg += "|cffff0000|TInterface\\pvpframe\\PVPCurrency-Honor-Horde:25|t";
                                         msg += GetNameLink(player);
                                         msg += " |cfffaeb00";
                                 }
                                 break;
                         // Moderator/trial
                         case SEC_MODERATOR:
-                                msg += "|cff00ff00[World]";
-                                msg += "|cffff8a00[Mod] ";
-                                msg += " |TINTERFACE/CHATFRAME/UI-CHATICON-BLIZZ:15|t";
+                                msg += "|cff00ff00[World] ";
+                                msg += "|cffff8a00[Mod]";
+                                msg += "|TINTERFACE/CHATFRAME/UI-CHATICON-BLIZZ:15|t";
                                 msg += GetNameLink(player);
                                 msg += " |cfffaeb00";
                                 break;
                         // GM
                         case SEC_GAMEMASTER:
-                                msg += "|cff00ff00[World]";
-                                msg += "|cff00ffff[GM] ";
-                                msg += " |TINTERFACE/CHATFRAME/UI-CHATICON-BLIZZ:15|t";
+                                msg += "|cff00ff00[World] ";
+                                msg += "|cff00ffff[GM]";
+                                msg += "|TINTERFACE/CHATFRAME/UI-CHATICON-BLIZZ:15|t";
                                 msg += GetNameLink(player);
                                 msg += " |cfffaeb00";
                                 break;
                         // Senior GM
                         case SEC_ADMINISTRATOR:
-                                msg += "|cff00ff00[World]";
-                                msg += "|cff00ffff[Senior GM] ";
-                                msg += " |TINTERFACE/CHATFRAME/UI-CHATICON-BLIZZ:15|t";
+                                msg += "|cff00ff00[World] ";
+                                msg += "|cff00ffff[Senior GM]";
+                                msg += "|TINTERFACE/CHATFRAME/UI-CHATICON-BLIZZ:15|t";
                                 msg += GetNameLink(player);
                                 msg += " |cfffaeb00";
                                 break;
                         // Consola
                         case SEC_CONSOLE:
-                                msg += "|cff00ff00[World]";
-                                msg += "|cff00ffff[Senior GM] ";
-                                msg += " |TINTERFACE/CHATFRAME/UI-CHATICON-BLIZZ:15|t";
+                                msg += "|cff00ff00[World] ";
+                                msg += "|cff00ffff[Senior GM]";
+                                msg += "|TINTERFACE/CHATFRAME/UI-CHATICON-BLIZZ:15|t";
                                 msg += GetNameLink(player);
                                 msg += " |cfffaeb00";
                                 break;
                         // Admin
                         case 5:
-                                msg += "|cff00ff00[World]";
-                                msg += "|cfffa9900[Admin] ";
-                                msg += " |TINTERFACE/CHATFRAME/UI-CHATICON-BLIZZ:15|t";
+                                msg += "|cff00ff00[World] ";
+                                msg += "|cfffa9900[Admin]";
+                                msg += "|TINTERFACE/CHATFRAME/UI-CHATICON-BLIZZ:15|t";
                                 msg += GetNameLink(player);
                                 msg += " |cfffaeb00";
                                 break;
                         // Dev
                         case 6:
-                                msg += "|cff00ff00[World]";
-                                msg += "|cffff6666[Dev] ";
-                                msg += " |TInterface\\icons\\Pet_Type_Humanoid:15|t";
+                                msg += "|cff00ff00[World] ";
+                                msg += "|cffff6666[Dev]";
+                                msg += "|TInterface\\icons\\Achievement_Boss_Mutanus_the_Devourer:15|t";
                                 msg += GetNameLink(player);
                                 msg += " |cfffaeb00";
                                 break;
