@@ -438,37 +438,38 @@ class item_sylvanas_music_box : public ItemScript
 // Schematic: Chief Engineer Jard's Journal - 143743
 class spell_gen_chief_engineer_journal : public SpellScriptLoader
 {
-    public:
-        spell_gen_chief_engineer_journal() : SpellScriptLoader("spell_gen_chief_engineer_journal") { }
+public:
+    spell_gen_chief_engineer_journal() : SpellScriptLoader("spell_gen_chief_engineer_journal") { }
 
-        class spell_gen_chief_engineer_journal_SpellScript : public SpellScript
+    class spell_gen_chief_engineer_journal_SpellScript : public SpellScript
+    {
+        PrepareSpellScript(spell_gen_chief_engineer_journal_SpellScript);
+
+        bool Load()
         {
-            PrepareSpellScript(spell_gen_chief_engineer_journal_SpellScript);
-
-            void HandleOnHit()
-            {
-                if (Player* _player = GetCaster()->ToPlayer())
-                {
-                    if (_player->HasSpell(110403))
-                        _player->learnSpell(139192, true);
-                        _player->learnSpell(139176, true);
-                        _player->learnSpell(139197, true);
-                        _player->learnSpell(139196, true);
-                        _player->learnSpell(143714, true);
-                        _player->SaveToDB();
-                }
-            }
-
-            void Register()
-            {
-                OnHit += SpellHitFn(spell_gen_chief_engineer_journal_SpellScript::HandleOnHit);
-            }
-        };
-
-        SpellScript* GetSpellScript() const
-        {
-            return new spell_gen_chief_engineer_journal_SpellScript();
+            return GetCaster()->GetTypeId() == TYPEID_PLAYER;
         }
+
+        void HandleOnHit()
+        {
+            if (Player* caster = GetCaster()->ToPlayer())
+            {
+                if (!caster->HasSpell(110403))
+                    caster->learnSpell(139192, true);
+            }       
+        }
+
+        void Register()
+        {
+            OnHit += SpellHitFn(spell_gen_chief_engineer_journal_SpellScript::HandleOnHit);
+        }
+
+    };
+
+    SpellScript* GetSpellScript() const
+    {
+        return new spell_gen_chief_engineer_journal_SpellScript();
+    }
 };
 
 void AddSC_item_scripts()
