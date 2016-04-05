@@ -1,0 +1,5 @@
+DELETE FROM `autobroadcast` WHERE `entry` = 1;
+insert into `autobroadcast` (`entry`, `content_default`, `content_loc1`, `content_loc2`, `content_loc3`, `content_loc4`, `content_loc5`, `content_loc6`, `content_loc7`, `content_loc8`, `content_loc9`, `content_loc10`) values
+('1','|cff99cc00Estas jugando en WoW Magdalena 5.4.8 - No olvides visitar|r |cffffb100wow.magdalenaperu.com|r|cff99cc00. Para registro y Tutorial de como empezar a jugar.|r Puedes encontrar mas informacion sobre el servidor en el siguiente link:|cffffb100www.facebook.com/wowmagdalenaserver|r|cff99cc00. |r',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+insert into `autobroadcast` (`entry`, `content_default`, `content_loc1`, `content_loc2`, `content_loc3`, `content_loc4`, `content_loc5`, `content_loc6`, `content_loc7`, `content_loc8`, `content_loc9`, `content_loc10`) values
+('5','|cff69CCF0Recuerda usar el comando|r |cffffb100.chat|r|cff69CCF0 Para empezar a chatear con todo el mundo y entre facciones.|r',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
