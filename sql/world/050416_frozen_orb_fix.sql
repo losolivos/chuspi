@@ -1,0 +1,1 @@
+UPDATE creature_template SET ScriptName = 'npc_mage_orb',HoverHeight = '6' WHERE entry = 45322;
