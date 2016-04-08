@@ -275,6 +275,7 @@ class boss_flame_leviathan : public CreatureScript
                 Shutdown = 0;
                 _pursueTarget = 0;
 
+                me->RemoveAllAuras();
                 me->SetReactState(REACT_DEFENSIVE);
             }
 
@@ -330,6 +331,7 @@ class boss_flame_leviathan : public CreatureScript
 
             void JustDied(Unit* /*killer*/)
             {
+                me->RemoveAllAuras();
                 _JustDied();
                 // Set Field Flags 67108928 = 64 | 67108864 = UNIT_FLAG_UNK_6 | UNIT_FLAG_SKINNABLE
                 // Set DynFlags 12
@@ -722,11 +724,13 @@ class boss_flame_leviathan_overload_device : public CreatureScript
 
             void OnSpellClick(Unit* /*clicker*/, bool &/*result*/)
             {
+                if (!result)
+                    return;
+
                 if (me->GetVehicle())
                 {
                     me->RemoveFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_SPELLCLICK);
                     me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
-
                     if (Unit* player = me->GetVehicle()->GetPassenger(SEAT_PLAYER))
                     {
                         me->GetVehicleBase()->CastSpell(player, SPELL_SMOKE_TRAIL, true);
