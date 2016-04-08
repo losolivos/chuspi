@@ -245,7 +245,6 @@ class boss_lady_deathwhisper : public CreatureScript
             {
                 if (!_introDone && me->IsWithinDistInMap(who, 100.0f))
                 {
-                    me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
                     _introDone = true;
                     Talk(SAY_INTRO_1);
                     events.SetPhase(PHASE_INTRO);
@@ -449,9 +448,6 @@ class boss_lady_deathwhisper : public CreatureScript
                             break;
                         case EVENT_INTRO_7:
                             Talk(SAY_INTRO_7);
-                            break;
-                        case EVENT_INTRO_FINISH:
-                            me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
                             break;
                         case EVENT_DEATH_AND_DECAY:
                             if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM))
