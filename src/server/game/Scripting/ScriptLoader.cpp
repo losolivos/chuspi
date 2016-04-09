@@ -759,6 +759,8 @@ void AddSC_chat_log();
 
 // custom
 void AddSC_molten_anniversary();
+void AddSC_duel_reset();
+void AddSC_tele();
 #endif
 
 void AddScripts()
@@ -1556,5 +1558,7 @@ void AddCustomScripts()
 #ifdef SCRIPTS
     AddSC_darkmoon_faire();
     AddSC_molten_anniversary();
+    AddSC_duel_reset();
+    AddSC_tele();
 #endif
 }

@@ -11,6 +11,8 @@
 set(scripts_STAT_SRCS
   ${scripts_STAT_SRCS}
   Custom/molen_anniversary.cpp
+  Custom/duel_reset.cpp
+  Custom/tele.cpp
   )
 
 message("  -> Prepared: Custom")
