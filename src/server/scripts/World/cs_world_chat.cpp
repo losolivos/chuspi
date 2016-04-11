@@ -91,7 +91,7 @@ class cs_world_chat : public CommandScript
                                 if (player->GetTeam() == ALLIANCE)
                                 {
                                         msg += "|cff00ff00[World]";
-                                        msg += "|cff0000ff|TInterface\\icons\\PVPCurrency-Honor-Alliance:25|t";
+                                        msg += "|cff0000ff|TInterface\\icons\\PVPCurrency-Honor-Alliance:15|t";
                                         msg += GetNameLink(player);
                                         msg += " |cfffaeb00";
                                 }
@@ -99,7 +99,7 @@ class cs_world_chat : public CommandScript
                                 else
                                 {
                                         msg += "|cff00ff00[World]";
-                                        msg += "|cffff0000|TInterface\\icons\\PVPCurrency-Honor-Horde:25|t";
+                                        msg += "|cffff0000|TInterface\\icons\\PVPCurrency-Honor-Horde:15|t";
                                         msg += GetNameLink(player);
                                         msg += " |cfffaeb00";
                                 }

@@ -761,6 +761,7 @@ void AddSC_chat_log();
 void AddSC_molten_anniversary();
 void AddSC_duel_reset();
 void AddSC_tele();
+void AddSC_pvpquest();
 #endif
 
 void AddScripts()
@@ -1560,5 +1561,6 @@ void AddCustomScripts()
     AddSC_molten_anniversary();
     AddSC_duel_reset();
     AddSC_tele();
+    AddSC_pvpquest();
 #endif
 }
