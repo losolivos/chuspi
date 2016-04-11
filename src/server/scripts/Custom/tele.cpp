@@ -33,27 +33,27 @@ public:
 	}
 	bool OnGossipHello(Player* Plr, Creature* pCrea)
 	{
-		Plr->ADD_GOSSIP_ITEM(12, "Welcome to Celestial-WoW! Where would you like to go?", GOSSIP_SENDER_MAIN, 8888);
+		Plr->ADD_GOSSIP_ITEM(12, "Bienvenido a WoW-Magdalena! a donde te gustaria ir?", GOSSIP_SENDER_MAIN, 8888);
 		// Main Menu for Alliance
 		if (Plr->GetTeam() == ALLIANCE)
 		{
-			Plr->ADD_GOSSIP_ITEM(8, "Global Mall", GOSSIP_SENDER_MAIN, 100000);
-			Plr->ADD_GOSSIP_ITEM(7, "Alliance Cities ->", GOSSIP_SENDER_MAIN, 1000);
-			Plr->ADD_GOSSIP_ITEM(7, "Neutral Cities ->", GOSSIP_SENDER_MAIN, 3000);
-			Plr->ADD_GOSSIP_ITEM(7, "Dungeons ->", GOSSIP_SENDER_MAIN, 5000);
+			Plr->ADD_GOSSIP_ITEM(8, "Zona Principal", GOSSIP_SENDER_MAIN, 100000);
+			Plr->ADD_GOSSIP_ITEM(7, "Ciudades de Alianza ->", GOSSIP_SENDER_MAIN, 1000);
+			Plr->ADD_GOSSIP_ITEM(7, "Ciudades Neutrales ->", GOSSIP_SENDER_MAIN, 3000);
+			Plr->ADD_GOSSIP_ITEM(7, "Mazmorras ->", GOSSIP_SENDER_MAIN, 5000);
 			Plr->ADD_GOSSIP_ITEM(9, "Raids ->", GOSSIP_SENDER_MAIN, 6);
-			Plr->ADD_GOSSIP_ITEM(9, "World Bosses ->", GOSSIP_SENDER_MAIN, 90500);
-			Plr->ADD_GOSSIP_ITEM(9, "|cffff0000Gurubashi Arena - PvP", GOSSIP_SENDER_MAIN, 3500);
+			Plr->ADD_GOSSIP_ITEM(9, "Boses Mundiales ->", GOSSIP_SENDER_MAIN, 90500);
+			Plr->ADD_GOSSIP_ITEM(9, "|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
 		}
 		else // Main Menu for Horde
 		{
-			Plr->ADD_GOSSIP_ITEM(8, "Global Mall", GOSSIP_SENDER_MAIN, 100000);
-			Plr->ADD_GOSSIP_ITEM(7, "Horde Cities ->", GOSSIP_SENDER_MAIN, 2000);
-			Plr->ADD_GOSSIP_ITEM(7, "Neutral Cities ->", GOSSIP_SENDER_MAIN, 3000);
-			Plr->ADD_GOSSIP_ITEM(9, "Dungeons ->", GOSSIP_SENDER_MAIN, 5000);
+			Plr->ADD_GOSSIP_ITEM(8, "Zona Principal", GOSSIP_SENDER_MAIN, 100000);
+			Plr->ADD_GOSSIP_ITEM(7, "Ciudades de la Horda ->", GOSSIP_SENDER_MAIN, 2000);
+			Plr->ADD_GOSSIP_ITEM(7, "Ciudades Neutrales ->", GOSSIP_SENDER_MAIN, 3000);
+			Plr->ADD_GOSSIP_ITEM(9, "Mazmorras ->", GOSSIP_SENDER_MAIN, 5000);
 			Plr->ADD_GOSSIP_ITEM(9, "Raids ->", GOSSIP_SENDER_MAIN, 6);
-			Plr->ADD_GOSSIP_ITEM(9, "World Bosses ->", GOSSIP_SENDER_MAIN, 90500);
-			Plr->ADD_GOSSIP_ITEM(9, "|cffff0000Gurubashi Arena - PvP", GOSSIP_SENDER_MAIN, 3500);
+			Plr->ADD_GOSSIP_ITEM(9, "Boses Mundiales ->", GOSSIP_SENDER_MAIN, 90500);
+			Plr->ADD_GOSSIP_ITEM(9, "|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
 		}
 
 		Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
@@ -67,7 +67,7 @@ public:
 		if (Plr->IsInCombat())
 		{
 			Plr->CLOSE_GOSSIP_MENU();
-			pCrea->MonsterSay("You are in combat!", LANG_UNIVERSAL, NULL);
+			pCrea->MonsterSay("Estas en combate!", LANG_UNIVERSAL, NULL);
 			return false;
 		}
 
@@ -81,14 +81,22 @@ public:
 
 			// Global Mall
 		case 100000:
-			Plr->CLOSE_GOSSIP_MENU();
-			Plr->TeleportTo(870, 3878.543213f, 2589.685547f, 757.201599f, 2.045576f);
+			if (Plr->GetTeam() == ALLIANCE)
+			{
+				Plr->CLOSE_GOSSIP_MENU();
+				Plr->TeleportTo(0, -9088.42f, 419.664f, 92.2131f, 3.81475f);
+			}
+			else // Main Menu for Horde
+			{
+				Plr->CLOSE_GOSSIP_MENU();
+				Plr->TeleportTo(1, 1357.63f, -4371.36f, 26.1461f, 3.25609f);
+			}
 			break;
 
-			// Gurubashi
+			// zona duelos
 		case 3500:
 			Plr->CLOSE_GOSSIP_MENU();
-			Plr->TeleportTo(0, -13245.379883f, 194.428299f, 30.992887f, 1.098357f);
+			Plr->TeleportTo(870, 3878.543213f, 2589.685547f, 757.201599f, 2.045576f);
 			break;
 
 		case 1000: //Alliance Town
@@ -99,7 +107,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(5, "Stormwind", GOSSIP_SENDER_MAIN, 1015);
 			Plr->ADD_GOSSIP_ITEM(5, "Shrine of Seven Stars", GOSSIP_SENDER_MAIN, 21000);
 			Plr->ADD_GOSSIP_ITEM(7, "Dungeons ->", GOSSIP_SENDER_MAIN, 5000);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Main Menu", GOSSIP_SENDER_MAIN, 5005);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Menu Principal", GOSSIP_SENDER_MAIN, 5005);
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 			break;
 
@@ -111,7 +119,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(5, "Undercity", GOSSIP_SENDER_MAIN, 2015);
 			Plr->ADD_GOSSIP_ITEM(5, "Shrine of Two Moons", GOSSIP_SENDER_MAIN, 22000);
 			Plr->ADD_GOSSIP_ITEM(7, "Dungeons ->", GOSSIP_SENDER_MAIN, 5000);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Main Menu", GOSSIP_SENDER_MAIN, 5005);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Menu Principal", GOSSIP_SENDER_MAIN, 5005);
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 			break;
 
@@ -122,13 +130,13 @@ public:
 			{
 				Plr->ADD_GOSSIP_ITEM(5, "Dalaran", GOSSIP_SENDER_MAIN, 3010);
 				Plr->ADD_GOSSIP_ITEM(5, "Shattrath City", GOSSIP_SENDER_MAIN, 3035);
-				Plr->ADD_GOSSIP_ITEM(7, "<- Main Menu", GOSSIP_SENDER_MAIN, 5005);
+				Plr->ADD_GOSSIP_ITEM(7, "<- Menu Principal", GOSSIP_SENDER_MAIN, 5005);
 			}
 			else
 			{
 				Plr->ADD_GOSSIP_ITEM(5, "Dalaran", GOSSIP_SENDER_MAIN, 3010);
 				Plr->ADD_GOSSIP_ITEM(5, "Shattrath City", GOSSIP_SENDER_MAIN, 3035);
-				Plr->ADD_GOSSIP_ITEM(7, "<- Main Menu", GOSSIP_SENDER_MAIN, 5005);
+				Plr->ADD_GOSSIP_ITEM(7, "<- Menu Principal", GOSSIP_SENDER_MAIN, 5005);
 			}
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 			break;
@@ -141,34 +149,34 @@ public:
 			Plr->ADD_GOSSIP_ITEM(7, "Northrend ->", GOSSIP_SENDER_MAIN, 5030);
 			Plr->ADD_GOSSIP_ITEM(7, "Cataclysm ->", GOSSIP_SENDER_MAIN, 10000);
 			Plr->ADD_GOSSIP_ITEM(7, "Pandaria ->", GOSSIP_SENDER_MAIN, 20000);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Main Menu", GOSSIP_SENDER_MAIN, 5005);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Menu Principal", GOSSIP_SENDER_MAIN, 5005);
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 			break;
 
 		case 5005: //Back To Main Menu
 			Plr->PlayerTalkClass->ClearMenus();
 			// Main Menu for Alliance
-			Plr->ADD_GOSSIP_ITEM(12, "Welcome to Celestial-WoW! Where would you like to go?", GOSSIP_SENDER_MAIN, 8888);
+			Plr->ADD_GOSSIP_ITEM(12, "Bienvenido a WoW-Magdalena! a donde te gustaria ir?", GOSSIP_SENDER_MAIN, 8888);
 			// Main Menu for Alliance
 			if (Plr->GetTeam() == ALLIANCE)
 			{
-				Plr->ADD_GOSSIP_ITEM(8, "Global Mall", GOSSIP_SENDER_MAIN, 100000);
-				Plr->ADD_GOSSIP_ITEM(7, "Alliance Cities ->", GOSSIP_SENDER_MAIN, 1000);
-				Plr->ADD_GOSSIP_ITEM(7, "Neutral Cities ->", GOSSIP_SENDER_MAIN, 3000);
-				Plr->ADD_GOSSIP_ITEM(7, "Dungeons ->", GOSSIP_SENDER_MAIN, 5000);
+				Plr->ADD_GOSSIP_ITEM(8, "Zona Principal", GOSSIP_SENDER_MAIN, 100000);
+				Plr->ADD_GOSSIP_ITEM(7, "Ciudades de la Alianza ->", GOSSIP_SENDER_MAIN, 1000);
+				Plr->ADD_GOSSIP_ITEM(7, "Ciudades Neutrales ->", GOSSIP_SENDER_MAIN, 3000);
+				Plr->ADD_GOSSIP_ITEM(7, "Mazmorras ->", GOSSIP_SENDER_MAIN, 5000);
 				Plr->ADD_GOSSIP_ITEM(9, "Raids ->", GOSSIP_SENDER_MAIN, 6);
 				Plr->ADD_GOSSIP_ITEM(9, "World Bosses ->", GOSSIP_SENDER_MAIN, 90500);
-				Plr->ADD_GOSSIP_ITEM(9, "|cffff0000Gurubashi Arena - PvP", GOSSIP_SENDER_MAIN, 3500);
+				Plr->ADD_GOSSIP_ITEM(9, "|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
 			}
 			else // Main Menu for Horde
 			{
-				Plr->ADD_GOSSIP_ITEM(8, "Global Mall", GOSSIP_SENDER_MAIN, 100000);
-				Plr->ADD_GOSSIP_ITEM(7, "Horde Cities ->", GOSSIP_SENDER_MAIN, 2000);
-				Plr->ADD_GOSSIP_ITEM(7, "Neutral Cities ->", GOSSIP_SENDER_MAIN, 3000);
-				Plr->ADD_GOSSIP_ITEM(9, "Dungeons ->", GOSSIP_SENDER_MAIN, 5000);
+				Plr->ADD_GOSSIP_ITEM(8, "Zona Principal", GOSSIP_SENDER_MAIN, 100000);
+				Plr->ADD_GOSSIP_ITEM(7, "Ciudades de la Horda ->", GOSSIP_SENDER_MAIN, 2000);
+				Plr->ADD_GOSSIP_ITEM(7, "Ciudades Neutrales ->", GOSSIP_SENDER_MAIN, 3000);
+				Plr->ADD_GOSSIP_ITEM(9, "Mazmorras ->", GOSSIP_SENDER_MAIN, 5000);
 				Plr->ADD_GOSSIP_ITEM(9, "Raids ->", GOSSIP_SENDER_MAIN, 6);
 				Plr->ADD_GOSSIP_ITEM(9, "World Bosses ->", GOSSIP_SENDER_MAIN, 90500);
-				Plr->ADD_GOSSIP_ITEM(9, "|cffff0000Gurubashi Arena - PvP", GOSSIP_SENDER_MAIN, 3500);
+				Plr->ADD_GOSSIP_ITEM(9, "|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
 			}
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 			break;
@@ -185,7 +193,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(5, "Blackrock Depths", GOSSIP_SENDER_MAIN, 7001);
 			Plr->ADD_GOSSIP_ITEM(5, "Blackrock Spire", GOSSIP_SENDER_MAIN, 7005);
 			Plr->ADD_GOSSIP_ITEM(5, "Gnomeregan", GOSSIP_SENDER_MAIN, 7020);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Back", GOSSIP_SENDER_MAIN, 5000);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Atras", GOSSIP_SENDER_MAIN, 5000);
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 			break;
 
@@ -196,8 +204,8 @@ public:
 			Plr->ADD_GOSSIP_ITEM(5, "Sunken Temple", GOSSIP_SENDER_MAIN, 7060);
 			Plr->ADD_GOSSIP_ITEM(5, "The Stockade", GOSSIP_SENDER_MAIN, 7065);
 			Plr->ADD_GOSSIP_ITEM(5, "Uldaman", GOSSIP_SENDER_MAIN, 7070);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Back", GOSSIP_SENDER_MAIN, 5010);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Main Menu", GOSSIP_SENDER_MAIN, 5005);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Atras", GOSSIP_SENDER_MAIN, 5010);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Menu Principal", GOSSIP_SENDER_MAIN, 5005);
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 
 			break;
@@ -210,7 +218,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(5, "Gruul's Lair", GOSSIP_SENDER_MAIN, 8015);
 			Plr->ADD_GOSSIP_ITEM(5, "Hellfire Citadel", GOSSIP_SENDER_MAIN, 8020);
 			Plr->ADD_GOSSIP_ITEM(5, "Tempest Keep", GOSSIP_SENDER_MAIN, 8025);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Back", GOSSIP_SENDER_MAIN, 5000);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Atras", GOSSIP_SENDER_MAIN, 5000);
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 			break;
 
@@ -228,7 +236,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(5, "Utgarde Pinnacle", GOSSIP_SENDER_MAIN, 9045);
 			Plr->ADD_GOSSIP_ITEM(5, "Ulduar", GOSSIP_SENDER_MAIN, 9050);
 			Plr->ADD_GOSSIP_ITEM(5, "Violet Hold", GOSSIP_SENDER_MAIN, 9055);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Back", GOSSIP_SENDER_MAIN, 5000);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Atras", GOSSIP_SENDER_MAIN, 5000);
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 
 			break;
@@ -249,7 +257,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(5, "Well of Eternity", GOSSIP_SENDER_MAIN, 10600);
 			Plr->ADD_GOSSIP_ITEM(5, "Zul'Aman", GOSSIP_SENDER_MAIN, 10650);
 			Plr->ADD_GOSSIP_ITEM(5, "Zul'Gurub", GOSSIP_SENDER_MAIN, 10700);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Back", GOSSIP_SENDER_MAIN, 5000);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Atras", GOSSIP_SENDER_MAIN, 5000);
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 
 			break;
@@ -265,7 +273,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(5, "Siege of Niuzao Temple", GOSSIP_SENDER_MAIN, 20350);
 			Plr->ADD_GOSSIP_ITEM(5, "Stormstout Brewery", GOSSIP_SENDER_MAIN, 20400);
 			Plr->ADD_GOSSIP_ITEM(5, "Temple of the Jade Serpent", GOSSIP_SENDER_MAIN, 20450);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Back", GOSSIP_SENDER_MAIN, 5000);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Atras", GOSSIP_SENDER_MAIN, 5000);
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 
 			break;
@@ -277,7 +285,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(7, "Northrend ->", GOSSIP_SENDER_MAIN, 60100);
 			Plr->ADD_GOSSIP_ITEM(7, "Cataclysm ->", GOSSIP_SENDER_MAIN, 60150);
 			Plr->ADD_GOSSIP_ITEM(7, "Pandaria ->", GOSSIP_SENDER_MAIN, 60200);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Main Menu", GOSSIP_SENDER_MAIN, 5005);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Menu Principal", GOSSIP_SENDER_MAIN, 5005);
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 			break;
 
@@ -286,7 +294,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(5, "Blackwing Lair", GOSSIP_SENDER_MAIN, 70100);
 			Plr->ADD_GOSSIP_ITEM(5, "Ruins of Ahn'Qiraj", GOSSIP_SENDER_MAIN, 70150);
 			Plr->ADD_GOSSIP_ITEM(5, "Temple of Ahn'Qiraj", GOSSIP_SENDER_MAIN, 70200);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Back", GOSSIP_SENDER_MAIN, 6);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Atras", GOSSIP_SENDER_MAIN, 6);
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 			break;
 
@@ -300,7 +308,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(5, "Caverns of Time: Mount Hyjal", GOSSIP_SENDER_MAIN, 70500);
 			Plr->ADD_GOSSIP_ITEM(5, "Black Temple", GOSSIP_SENDER_MAIN, 70550);
 			Plr->ADD_GOSSIP_ITEM(5, "Sunwell Plateau", GOSSIP_SENDER_MAIN, 70600);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Back", GOSSIP_SENDER_MAIN, 6);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Atras", GOSSIP_SENDER_MAIN, 6);
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 			break;
 
@@ -315,7 +323,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(5, "Onyxia's Lair", GOSSIP_SENDER_MAIN, 80350);
 			Plr->ADD_GOSSIP_ITEM(5, "Icecrown Citadel", GOSSIP_SENDER_MAIN, 80400);
 			Plr->ADD_GOSSIP_ITEM(5, "Ruby Sanctum", GOSSIP_SENDER_MAIN, 80450);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Back", GOSSIP_SENDER_MAIN, 6);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Atras", GOSSIP_SENDER_MAIN, 6);
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 			break;
 
@@ -327,7 +335,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(5, "Blackwing Descent", GOSSIP_SENDER_MAIN, 80650);
 			Plr->ADD_GOSSIP_ITEM(5, "Firelands", GOSSIP_SENDER_MAIN, 80700);
 			Plr->ADD_GOSSIP_ITEM(5, "Dragon Soul", GOSSIP_SENDER_MAIN, 80750);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Back", GOSSIP_SENDER_MAIN, 6);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Atras", GOSSIP_SENDER_MAIN, 6);
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 			break;
 
@@ -336,7 +344,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(5, "Mogu'shan Vaults", GOSSIP_SENDER_MAIN, 90050);
 			Plr->ADD_GOSSIP_ITEM(5, "Heart of Fear", GOSSIP_SENDER_MAIN, 90100);
 			Plr->ADD_GOSSIP_ITEM(5, "Terrace of Endless Spring", GOSSIP_SENDER_MAIN, 90150);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Back", GOSSIP_SENDER_MAIN, 6);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Atras", GOSSIP_SENDER_MAIN, 6);
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 			break;
 
@@ -347,7 +355,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(5, "Celestials (Timeless Isle)", GOSSIP_SENDER_MAIN, 98000);
 			Plr->ADD_GOSSIP_ITEM(5, "Oondasta (Isle of Giants)", GOSSIP_SENDER_MAIN, 99000);
 			Plr->ADD_GOSSIP_ITEM(5, "Nalak (Isle of Thunder) NYI", GOSSIP_SENDER_MAIN, 0);
-			Plr->ADD_GOSSIP_ITEM(7, "<- Back", GOSSIP_SENDER_MAIN, 6);
+			Plr->ADD_GOSSIP_ITEM(7, "<- Atras", GOSSIP_SENDER_MAIN, 6);
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 			break;
 

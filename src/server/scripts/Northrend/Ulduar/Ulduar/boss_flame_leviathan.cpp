@@ -551,6 +551,11 @@ class boss_flame_leviathan : public CreatureScript
                     if (me->isAttackReady())
                     {
                         Unit* target = ObjectAccessor::GetUnit(*me, _pursueTarget);
+
+                        // Pursue was unable to acquire a valid target, so get the current victim as target.
+                        if (!target && me->GetVictim())
+                        target = me->GetVictim();
+
                         if (me->IsWithinCombatRange(target, 30.0f))
                         {
                             DoCast(target, SPELL_BATTERING_RAM);

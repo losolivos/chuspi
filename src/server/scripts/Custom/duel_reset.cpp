@@ -8,7 +8,7 @@ duel_reset() : PlayerScript("duel_reset"){}
 void OnDuelEnd(Player* pWinner, Player* pLoser, DuelCompleteType type)
 
 {
-    if (pWinner->GetAreaId() == 5974)
+    if (pWinner->GetAreaId() == 4824)
     {
 
 		if (type != DUEL_WON)
