@@ -43,7 +43,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(7, "Mazmorras ->", GOSSIP_SENDER_MAIN, 5000);
 			Plr->ADD_GOSSIP_ITEM(9, "Raids ->", GOSSIP_SENDER_MAIN, 6);
 			Plr->ADD_GOSSIP_ITEM(9, "Boses Mundiales ->", GOSSIP_SENDER_MAIN, 90500);
-			Plr->ADD_GOSSIP_ITEM(9, "|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
+			Plr->ADD_GOSSIP_ITEM("|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
 		}
 		else // Main Menu for Horde
 		{
@@ -53,7 +53,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(9, "Mazmorras ->", GOSSIP_SENDER_MAIN, 5000);
 			Plr->ADD_GOSSIP_ITEM(9, "Raids ->", GOSSIP_SENDER_MAIN, 6);
 			Plr->ADD_GOSSIP_ITEM(9, "Boses Mundiales ->", GOSSIP_SENDER_MAIN, 90500);
-			Plr->ADD_GOSSIP_ITEM(9, "|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
+			Plr->ADD_GOSSIP_ITEM("|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
 		}
 
 		Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
@@ -96,7 +96,7 @@ public:
 			// zona duelos
 		case 3500:
 			Plr->CLOSE_GOSSIP_MENU();
-			Plr->TeleportTo(870, 3878.543213f, 2589.685547f, 757.201599f, 2.045576f);
+			Plr->TeleportTo(1, 3330.311035f, -4588.972168f, 268.069977f, 4.613704f);
 			break;
 
 		case 1000: //Alliance Town
@@ -165,8 +165,8 @@ public:
 				Plr->ADD_GOSSIP_ITEM(7, "Ciudades Neutrales ->", GOSSIP_SENDER_MAIN, 3000);
 				Plr->ADD_GOSSIP_ITEM(7, "Mazmorras ->", GOSSIP_SENDER_MAIN, 5000);
 				Plr->ADD_GOSSIP_ITEM(9, "Raids ->", GOSSIP_SENDER_MAIN, 6);
-				Plr->ADD_GOSSIP_ITEM(9, "World Bosses ->", GOSSIP_SENDER_MAIN, 90500);
-				Plr->ADD_GOSSIP_ITEM(9, "|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
+				Plr->ADD_GOSSIP_ITEM(9, "Boses Mundiales ->", GOSSIP_SENDER_MAIN, 90500);
+				Plr->ADD_GOSSIP_ITEM("|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
 			}
 			else // Main Menu for Horde
 			{
@@ -175,8 +175,8 @@ public:
 				Plr->ADD_GOSSIP_ITEM(7, "Ciudades Neutrales ->", GOSSIP_SENDER_MAIN, 3000);
 				Plr->ADD_GOSSIP_ITEM(9, "Mazmorras ->", GOSSIP_SENDER_MAIN, 5000);
 				Plr->ADD_GOSSIP_ITEM(9, "Raids ->", GOSSIP_SENDER_MAIN, 6);
-				Plr->ADD_GOSSIP_ITEM(9, "World Bosses ->", GOSSIP_SENDER_MAIN, 90500);
-				Plr->ADD_GOSSIP_ITEM(9, "|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
+				Plr->ADD_GOSSIP_ITEM(9, "Boses Mundiales ->", GOSSIP_SENDER_MAIN, 90500);
+				Plr->ADD_GOSSIP_ITEM("|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
 			}
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 			break;

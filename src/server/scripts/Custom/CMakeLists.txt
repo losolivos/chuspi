@@ -13,7 +13,6 @@ set(scripts_STAT_SRCS
   Custom/molen_anniversary.cpp
   Custom/duel_reset.cpp
   Custom/tele.cpp
-  Custom/pvpquest.cpp
   )
 
 message("  -> Prepared: Custom")
