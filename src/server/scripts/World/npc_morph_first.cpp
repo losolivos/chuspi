@@ -82,7 +82,7 @@ public:
 		case 20002://Lady Sylvanas Windrunner
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(28213);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -96,7 +96,7 @@ public:
 		case 20003://Gul'dan
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(16642);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -111,7 +111,7 @@ public:
 		case 20004://Akama
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(20681);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -126,7 +126,7 @@ public:
 		case 20005://Maiev Shadowsong
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(20628);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -141,7 +141,7 @@ public:
 		case 20006://Medivh
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(18718);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -156,7 +156,7 @@ public:
 		case 20007://Tucnak
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(24698);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -171,7 +171,7 @@ public:
 		case 20008://Geist
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(24579);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -186,7 +186,7 @@ public:
 		case 20009://Undead Pirat
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(25042);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -201,7 +201,7 @@ public:
 		case 20010://Velen the Prophet
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(17822);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -216,7 +216,7 @@ public:
 		case 20011://Christmas Blood Elf 18+
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(18785);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -231,7 +231,7 @@ public:
 		case 20012://Arthas
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(21976);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -246,7 +246,7 @@ public:
 		case 20013://Lich king
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(22235);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -261,7 +261,7 @@ public:
 		case 20014://Humr
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(19726);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -276,7 +276,7 @@ public:
 		case 20015://Terrorfiend
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(18373);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -291,7 +291,7 @@ public:
 		case 20016://Troll na netopyrovi
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(15303);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -306,7 +306,7 @@ public:
 		case 20017://Teron Gorefiend
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(21576);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -321,7 +321,7 @@ public:
 		case 20018://King Varian Wrynn
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(28127);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -336,7 +336,7 @@ public:
 		case 20019://Naga
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(18390);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -351,7 +351,7 @@ public:
 		case 20020://Santa Goblin
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(15698);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -366,7 +366,7 @@ public:
 		case 20021://Christmas Gnome Female
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(15799);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -381,7 +381,7 @@ public:
 		case 20022://Aldaron the Reckless
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(15925);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -396,7 +396,7 @@ public:
 		case 20023://Ogre
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(1122);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -411,7 +411,7 @@ public:
 		case 20024://Christmas Undead
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(18811);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -426,7 +426,7 @@ public:
 		case 20025://Christmas Night Elf. 18+
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(15748);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -441,7 +441,7 @@ public:
 		case 20026://Gnome Diver
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(27657);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -456,7 +456,7 @@ public:
 		case 20027://Santa Claus Gnom
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(15806);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -471,7 +471,7 @@ public:
 		case 20028://Human Diver
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(23426);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -486,7 +486,7 @@ public:
 		case 20029://Troll Diver
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(17272);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -503,7 +503,7 @@ public:
 		case 20030://Li Li Stormstout
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(44514);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -518,7 +518,7 @@ public:
 		case 20031://Chen Stormstout
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(39698);
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -533,7 +533,7 @@ public:
 		case 20032://Valeera Sanguinar
 			if (pPlayer->HasCurrency(reward, pocet))
 			{
-				pPlayer->ModifyCurrency(reward, pocet, true, false);
+				pPlayer->ModifyCurrency(reward, -pocet);
 				pCreature->MonsterWhisper(deffender_morpher_text_buy, pPlayer->GetGUID(), true);
 				pPlayer->SetDisplayId(26365);
 				pPlayer->CLOSE_GOSSIP_MENU();
