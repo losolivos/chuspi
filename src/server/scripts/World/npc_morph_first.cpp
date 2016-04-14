@@ -8,8 +8,8 @@ Modify: BlackMetalz
 #include "ScriptPCH.h"
 #include "WorldPacket.h"
 
-#define reward 888100 //reward id
-#define pocet 50 //pocet rewardu
+#define reward 392 //reward id
+#define pocet 100 //pocet rewardu
 #define deffender_morpher_text_buy "Transform Success" 
 #define deffender_morpher_text_err "You dont have enough Tokens" 
 #define deffender_morpher_text_cb  "You are in combat"
@@ -29,6 +29,7 @@ public:
 		}
 
 		pPlayer->PlayerTalkClass->ClearMenus();
+		pPlayer->ADD_GOSSIP_ITEM(12, "Recuerda que usar estas transformaciones tienen un costo de 100p de Honor", GOSSIP_SENDER_MAIN, 8888);
 		pPlayer->ADD_GOSSIP_ITEM(9, "Demorph", GOSSIP_SENDER_MAIN, 20001);
 		pPlayer->ADD_GOSSIP_ITEM(6, "Lady Sylvanas Windrunner", GOSSIP_SENDER_MAIN, 20002);
 		pPlayer->ADD_GOSSIP_ITEM(6, "Gul'dan", GOSSIP_SENDER_MAIN, 20003);
@@ -68,6 +69,11 @@ public:
 	{
 		switch (uiAction)
 		{
+		case 8888:
+			pPlayer->PlayerTalkClass->ClearMenus();
+			OnGossipHello(pPlayer, pCreature);
+			break;
+
 		case 20001://Demorph
 			pPlayer->CLOSE_GOSSIP_MENU();
 			pPlayer->DeMorph();
