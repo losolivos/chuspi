@@ -2,17 +2,17 @@
 Developer: Dway
 Script: Npc Morpher
 ScriptName: npc_morph
-Modify: BlackMetalz
+Modify: WoWMagdalena.gmHongito
 */
 
 #include "ScriptPCH.h"
 #include "WorldPacket.h"
 
 #define reward 392 //reward id
-#define pocet 100 //pocet rewardu
-#define deffender_morpher_text_buy "Transform Success" 
-#define deffender_morpher_text_err "You dont have enough Tokens" 
-#define deffender_morpher_text_cb  "You are in combat"
+#define pocet 10000 //pocet rewardu
+#define deffender_morpher_text_buy "Transformacion exitosa" 
+#define deffender_morpher_text_err "No tienes suficiente honor" 
+#define deffender_morpher_text_cb  "Estas en combate"
 class npc_morph_first : public CreatureScript
 {
 public:
@@ -29,8 +29,8 @@ public:
 		}
 
 		pPlayer->PlayerTalkClass->ClearMenus();
-		pPlayer->ADD_GOSSIP_ITEM(12, "Recuerda que usar estas transformaciones tienen un costo de 100p de Honor", GOSSIP_SENDER_MAIN, 8888);
-		pPlayer->ADD_GOSSIP_ITEM(9, "Demorph", GOSSIP_SENDER_MAIN, 20001);
+		pPlayer->ADD_GOSSIP_ITEM(10, "|cff2e2efeRecuerda que usar estas nuevas transformaciones tienen un costo de 100p de Honor", GOSSIP_SENDER_MAIN, 8888);
+		pPlayer->ADD_GOSSIP_ITEM(9, "Destransformarme!", GOSSIP_SENDER_MAIN, 20001);
 		pPlayer->ADD_GOSSIP_ITEM(6, "Lady Sylvanas Windrunner", GOSSIP_SENDER_MAIN, 20002);
 		pPlayer->ADD_GOSSIP_ITEM(6, "Gul'dan", GOSSIP_SENDER_MAIN, 20003);
 		pPlayer->ADD_GOSSIP_ITEM(6, "Akama", GOSSIP_SENDER_MAIN, 20004);

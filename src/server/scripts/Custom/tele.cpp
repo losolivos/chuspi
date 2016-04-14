@@ -43,7 +43,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(7, "Mazmorras ->", GOSSIP_SENDER_MAIN, 5000);
 			Plr->ADD_GOSSIP_ITEM(9, "Raids ->", GOSSIP_SENDER_MAIN, 6);
 			Plr->ADD_GOSSIP_ITEM(9, "Boses Mundiales ->", GOSSIP_SENDER_MAIN, 90500);
-			Plr->ADD_GOSSIP_ITEM(0, "|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
+			Plr->ADD_GOSSIP_ITEM(10, "|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
 		}
 		else // Main Menu for Horde
 		{
@@ -53,7 +53,7 @@ public:
 			Plr->ADD_GOSSIP_ITEM(9, "Mazmorras ->", GOSSIP_SENDER_MAIN, 5000);
 			Plr->ADD_GOSSIP_ITEM(9, "Raids ->", GOSSIP_SENDER_MAIN, 6);
 			Plr->ADD_GOSSIP_ITEM(9, "Boses Mundiales ->", GOSSIP_SENDER_MAIN, 90500);
-			Plr->ADD_GOSSIP_ITEM(0, "|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
+			Plr->ADD_GOSSIP_ITEM(10, "|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
 		}
 
 		Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
@@ -166,7 +166,7 @@ public:
 				Plr->ADD_GOSSIP_ITEM(7, "Mazmorras ->", GOSSIP_SENDER_MAIN, 5000);
 				Plr->ADD_GOSSIP_ITEM(9, "Raids ->", GOSSIP_SENDER_MAIN, 6);
 				Plr->ADD_GOSSIP_ITEM(9, "Boses Mundiales ->", GOSSIP_SENDER_MAIN, 90500);
-				Plr->ADD_GOSSIP_ITEM(0, "|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
+				Plr->ADD_GOSSIP_ITEM(10, "|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
 			}
 			else // Main Menu for Horde
 			{
@@ -176,7 +176,7 @@ public:
 				Plr->ADD_GOSSIP_ITEM(9, "Mazmorras ->", GOSSIP_SENDER_MAIN, 5000);
 				Plr->ADD_GOSSIP_ITEM(9, "Raids ->", GOSSIP_SENDER_MAIN, 6);
 				Plr->ADD_GOSSIP_ITEM(9, "Boses Mundiales ->", GOSSIP_SENDER_MAIN, 90500);
-				Plr->ADD_GOSSIP_ITEM(0, "|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
+				Plr->ADD_GOSSIP_ITEM(10, "|TInterface\\Icons\\Ability_DualWield:20|t |cffff0000Zona de Duelos - PvP", GOSSIP_SENDER_MAIN, 3500);
 			}
 			Plr->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCrea->GetGUID());
 			break;
