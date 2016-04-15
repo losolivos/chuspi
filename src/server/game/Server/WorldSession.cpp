@@ -92,7 +92,7 @@ WorldSession::WorldSession(uint32 id, WorldSocket* sock, AccountTypes sec,
     , m_playerRecentlyLogout(false), m_playerSave(false)
     , m_sessionDbcLocale(sWorld->GetAvailableDbcLocale(locale))
     , m_sessionDbLocaleIndex(locale), m_latency(0), m_TutorialsChanged(false)
-    , recruiterId(recruiter), isRecruiter(isARecruiter), timeLastWhoCommand(0)
+    , recruiterId(recruiter), isRecruiter(isARecruiter), m_currentVendorEntry(0), timeLastWhoCommand(0)
     , timeCharEnumOpcode(0), timeLastChannelInviteCommand(0)
     , timeLastChannelPassCommand(0), timeLastChannelMuteCommand(0)
     , timeLastChannelBanCommand(0), timeLastChannelUnbanCommand(0)
