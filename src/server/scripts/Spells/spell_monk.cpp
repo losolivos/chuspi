@@ -1324,7 +1324,7 @@ class spell_monk_jade_serpent_statue : public SpellScriptLoader
                     for (std::list<Creature*>::iterator i = tempList.begin(); i != tempList.end(); ++i)
                     {
                         Unit* owner = (*i)->GetOwner();
-                        if (owner && owner == _player && (*i)->isSummon())
+                        if (owner && owner == _player && (*i)->IsSummon())
                             continue;
 
                         jadeSerpentlist.remove((*i));
@@ -2311,7 +2311,7 @@ class spell_monk_soothing_mist : public SpellScriptLoader
         {
             PrepareAuraScript(spell_monk_soothing_mist_AuraScript);
 
-            void OnApply(constAuraEffectPtr /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            void OnApply(AuraEffect const * /*aurEff*/, AuraEffectHandleModes /*mode*/)
             {
                 if (!GetCaster())
                     return;
@@ -2341,7 +2341,7 @@ class spell_monk_soothing_mist : public SpellScriptLoader
                         for (std::list<Creature*>::iterator i = statueList.begin(); i != statueList.end();)
                         {
                             Unit* owner = (*i)->GetOwner();
-                            if (owner && owner == _player && (*i)->isSummon())
+                            if (owner && owner == _player && (*i)->IsSummon())
                             {
                                 ++i;
                                 continue;
@@ -2367,7 +2367,7 @@ class spell_monk_soothing_mist : public SpellScriptLoader
                 }
             }
 
-            void HandleEffectPeriodic(constAuraEffectPtr /*aurEff*/)
+            void HandleEffectPeriodic(AuraEffect const * /*aurEff*/)
             {
                 if (Unit* caster = GetCaster())
                     if (Unit* target = GetTarget())
@@ -2376,7 +2376,7 @@ class spell_monk_soothing_mist : public SpellScriptLoader
                             caster->CastSpell(caster, SPELL_MONK_SOOTHING_MIST_ENERGIZE, true);
             }
 
-            void OnRemove(constAuraEffectPtr aurEff, AuraEffectHandleModes /*mode*/)
+            void OnRemove(AuraEffect const * /*aurEff*/, AuraEffectHandleModes /*mode*/)
             {
                 if (Unit* caster = GetCaster())
                 {
@@ -2404,7 +2404,7 @@ class spell_monk_soothing_mist : public SpellScriptLoader
                             for (std::list<Creature*>::iterator i = tempList.begin(); i != tempList.end(); ++i)
                             {
                                 Unit* owner = (*i)->GetOwner();
-                                if (owner && owner == _player && (*i)->isSummon())
+                                if (owner && owner == _player && (*i)->IsSummon())
                                     continue;
 
                                 statueList.remove((*i));
