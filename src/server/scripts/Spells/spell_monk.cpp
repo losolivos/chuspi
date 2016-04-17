@@ -1303,7 +1303,10 @@ class spell_monk_jade_serpent_statue : public SpellScriptLoader
 
             void HandleSummon(SpellEffIndex effIndex)
             {
-                if (Player* player = GetCaster()->ToPlayer())
+                if (!GetCaster())
+                    return;
+
+                if (Player* _player = GetCaster()->ToPlayer())
                 {
                     PreventHitDefaultEffect(effIndex);
 
@@ -1311,14 +1314,17 @@ class spell_monk_jade_serpent_statue : public SpellScriptLoader
                     std::list<Creature*> tempList;
                     std::list<Creature*> jadeSerpentlist;
 
-                    player->GetCreatureListWithEntryInGrid(tempList, MONK_NPC_JADE_SERPENT_STATUE, 500.0f);
-                    player->GetCreatureListWithEntryInGrid(jadeSerpentlist, MONK_NPC_JADE_SERPENT_STATUE, 500.0f);
+                    if (_player)
+                    {
+                        _player->GetCreatureListWithEntryInGrid(tempList, MONK_NPC_JADE_SERPENT_STATUE, 500.0f);
+                        _player->GetCreatureListWithEntryInGrid(jadeSerpentlist, MONK_NPC_JADE_SERPENT_STATUE, 500.0f);
+                    }
 
                     // Remove other players jade statue
                     for (std::list<Creature*>::iterator i = tempList.begin(); i != tempList.end(); ++i)
                     {
                         Unit* owner = (*i)->GetOwner();
-                        if (owner && owner == player && (*i)->IsSummon())
+                        if (owner && owner == _player && (*i)->isSummon())
                             continue;
 
                         jadeSerpentlist.remove((*i));
@@ -1330,18 +1336,19 @@ class spell_monk_jade_serpent_statue : public SpellScriptLoader
 
                     Position pos;
                     GetExplTargetDest()->GetPosition(&pos);
-                    TempSummon* summon = player->SummonCreature(spell->Effects[effIndex].MiscValue, pos, TEMPSUMMON_TIMED_OR_CORPSE_DESPAWN, spell->GetDuration());
+                    const SummonPropertiesEntry* properties = sSummonPropertiesStore.LookupEntry(spell->Effects[effIndex].MiscValueB);
+                    TempSummon* summon = _player->SummonCreature(spell->Effects[effIndex].MiscValue, pos, TEMPSUMMON_TIMED_OR_CORPSE_DESPAWN, spell->GetDuration());
                     if (!summon)
                         return;
 
-                    summon->SetUInt64Value(UNIT_FIELD_SUMMONEDBY, player->GetGUID());
-                    summon->setFaction(player->getFaction());
+                    summon->SetUInt64Value(UNIT_FIELD_SUMMONEDBY, _player->GetGUID());
+                    summon->setFaction(_player->getFaction());
                     summon->SetUInt32Value(UNIT_CREATED_BY_SPELL, GetSpellInfo()->Id);
-                    summon->SetMaxHealth(player->CountPctFromMaxHealth(50));
+                    summon->SetMaxHealth(_player->CountPctFromMaxHealth(50));
                     summon->SetHealth(summon->GetMaxHealth());
-                    summon->setPowerType(POWER_MANA);
-                    summon->SetMaxPower(POWER_MANA, player->GetMaxPower(POWER_MANA));
-                    summon->SetPower(POWER_MANA, player->GetMaxPower(POWER_MANA));
+                    summon->ApplySpellImmune(0, IMMUNITY_EFFECT, SPELL_EFFECT_HEAL, true);
+                    summon->ApplySpellImmune(0, IMMUNITY_STATE, SPELL_AURA_PERIODIC_HEAL, true);
+                    summon->ApplySpellImmune(0, IMMUNITY_EFFECT, SPELL_EFFECT_HEAL_PCT, true);
                 }
             }
 
@@ -2304,65 +2311,127 @@ class spell_monk_soothing_mist : public SpellScriptLoader
         {
             PrepareAuraScript(spell_monk_soothing_mist_AuraScript);
 
-            enum _npc
+            void OnApply(constAuraEffectPtr /*aurEff*/, AuraEffectHandleModes /*mode*/)
             {
-                SPELL_JADE_SERPENT_STATUE_NPC_ENTRY = 60849
-            };
-
-            void OnApply(AuraEffect const * /*aurEff*/, AuraEffectHandleModes /*mode*/)
-            {
-                auto caster = GetCaster();
-                auto target = GetTarget();
-                if (!caster || !target)
+                if (!GetCaster())
                     return;
 
-                target->CastSpell(target, SPELL_MONK_SOOTHING_MIST_VISUAL, true);
+                if (Unit* target = GetTarget())
+                    target->CastSpell(target, SPELL_MONK_SOOTHING_MIST_VISUAL, true);
 
-                if (auto _player = caster->ToPlayer())
+                if (Player* _player = GetCaster()->ToPlayer())
                 {
-                    std::list<Player*> playerList;
-                    std::list<Creature*> statueList;
-                    target->GetPlayerListInGrid(playerList, 40.0f);
-                    _player->GetCreatureListWithEntryInGrid(statueList, SPELL_JADE_SERPENT_STATUE_NPC_ENTRY, 100.0f);
-
-                    if (playerList.empty() || statueList.empty())
-                        return;
-
-                    if (target->GetTypeId() == TYPEID_PLAYER)
-                        playerList.remove(target->ToPlayer());
-
-                    
-                    for (auto itr: statueList)
+                    if (Unit* target = GetTarget())
                     {
-                        if (itr->GetOwner() && itr->GetOwner()->GetGUID() == _player->GetGUID() && itr->IsSummon())
+                        std::list<Unit*> playerList;
+                        std::list<Creature*> statueList;
+
+                        _player->GetPartyMembers(playerList);
+
+                        if (playerList.size() > 1)
                         {
-                            if (Creature* statue = itr)
+                            playerList.remove(target);
+                            playerList.sort(Trinity::HealthPctOrderPred());
+                            playerList.resize(1);
+                        }
+
+                        _player->GetCreatureListWithEntryInGrid(statueList, 60849, 100.0f);
+
+                        // Remove other players jade statue
+                        for (std::list<Creature*>::iterator i = statueList.begin(); i != statueList.end();)
+                        {
+                            Unit* owner = (*i)->GetOwner();
+                            if (owner && owner == _player && (*i)->isSummon())
                             {
-                                if (statue && !playerList.empty())
-                                {
-                                    playerList.sort(Trinity::HealthPctOrderPred());
-                                    if (Player* pTarget = playerList.back())
-                                        statue->CastSpell(pTarget, GetSpellInfo()->Id, true, 0, 0, _player->GetGUID());
-                                }
-                                break;
+                                ++i;
+                                continue;
+                            }
+
+                            i = statueList.erase(i);
+                        }
+
+                        Creature* statue = nullptr;
+                        if (statueList.size() == 1)
+                            statue = *statueList.begin();
+
+                        if (statue != nullptr)
+                        {
+                            for (auto itr : playerList)
+                            {
+                                if ((statue->isPet() || statue->isGuardian()))
+                                    if (statue->GetOwner() && statue->GetOwner()->GetGUID() == _player->GetGUID())
+                                        statue->CastSpell(itr, GetSpellInfo()->Id, true);
                             }
                         }
                     }
                 }
             }
 
-            void HandleEffectPeriodic(AuraEffect const * /*aurEff*/)
+            void HandleEffectPeriodic(constAuraEffectPtr /*aurEff*/)
             {
                 if (Unit* caster = GetCaster())
-                    if (GetTarget() && roll_chance_i(25))
-                        caster->CastSpell(caster, SPELL_MONK_SOOTHING_MIST_ENERGIZE, true);
+                    if (Unit* target = GetTarget())
+                        // 30% to give 1 chi per tick
+                        if (roll_chance_i(30))
+                            caster->CastSpell(caster, SPELL_MONK_SOOTHING_MIST_ENERGIZE, true);
             }
 
-            void OnRemove(AuraEffect const * /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            void OnRemove(constAuraEffectPtr aurEff, AuraEffectHandleModes /*mode*/)
             {
-                if (GetCaster())
+                if (Unit* caster = GetCaster())
+                {
                     if (Unit* target = GetTarget())
-                        target->RemoveAura(SPELL_MONK_SOOTHING_MIST_VISUAL);
+                    {
+                        if (Player* _player = GetCaster()->ToPlayer())
+                        {
+                            std::list<Unit*> playerList;
+                            std::list<Creature*> tempList;
+                            std::list<Creature*> statueList;
+                            Creature* statue;
+
+                            _player->GetPartyMembers(playerList);
+
+                            if (playerList.size() > 1)
+                            {
+                                playerList.sort(Trinity::HealthPctOrderPred());
+                                playerList.resize(1);
+                            }
+
+                            _player->GetCreatureListWithEntryInGrid(tempList, 60849, 100.0f);
+                            _player->GetCreatureListWithEntryInGrid(statueList, 60849, 100.0f);
+
+                            // Remove other players jade statue
+                            for (std::list<Creature*>::iterator i = tempList.begin(); i != tempList.end(); ++i)
+                            {
+                                Unit* owner = (*i)->GetOwner();
+                                if (owner && owner == _player && (*i)->isSummon())
+                                    continue;
+
+                                statueList.remove((*i));
+                            }
+
+                            for (auto itr : playerList)
+                            {
+                                if (statueList.size() == 1)
+                                {
+                                    for (auto itrBis : statueList)
+                                        statue = itrBis;
+
+                                    if (statue && (statue->isPet() || statue->isGuardian()))
+                                    {
+                                        if (statue->GetOwner() && statue->GetOwner()->GetGUID() == _player->GetGUID())
+                                        {
+                                            statue->CastStop();
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (target->HasAura(SPELL_MONK_SOOTHING_MIST_VISUAL))
+                                target->RemoveAura(SPELL_MONK_SOOTHING_MIST_VISUAL);
+                        }
+                    }
+                }
             }
 
             void Register()
