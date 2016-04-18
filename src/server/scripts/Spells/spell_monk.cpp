@@ -1346,9 +1346,9 @@ class spell_monk_jade_serpent_statue : public SpellScriptLoader
                     summon->SetUInt32Value(UNIT_CREATED_BY_SPELL, GetSpellInfo()->Id);
                     summon->SetMaxHealth(_player->CountPctFromMaxHealth(50));
                     summon->SetHealth(summon->GetMaxHealth());
-                    summon->ApplySpellImmune(0, IMMUNITY_EFFECT, SPELL_EFFECT_HEAL, true);
-                    summon->ApplySpellImmune(0, IMMUNITY_STATE, SPELL_AURA_PERIODIC_HEAL, true);
-                    summon->ApplySpellImmune(0, IMMUNITY_EFFECT, SPELL_EFFECT_HEAL_PCT, true);
+                    summon->setPowerType(POWER_MANA);
+                    summon->SetMaxPower(POWER_MANA, _player->GetMaxPower(POWER_MANA));
+                    summon->SetPower(POWER_MANA, _player->GetMaxPower(POWER_MANA));
                 }
             }
 
