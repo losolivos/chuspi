@@ -2311,56 +2311,47 @@ class spell_monk_soothing_mist : public SpellScriptLoader
         {
             PrepareAuraScript(spell_monk_soothing_mist_AuraScript);
 
+            enum _npc
+            {
+                SPELL_JADE_SERPENT_STATUE_NPC_ENTRY = 60849
+            };
+
             void OnApply(AuraEffect const * /*aurEff*/, AuraEffectHandleModes /*mode*/)
             {
-                if (!GetCaster())
+                auto caster = GetCaster();
+                auto target = GetTarget();
+                if (!caster || !target)
                     return;
 
-                if (Unit* target = GetTarget())
-                    target->CastSpell(target, SPELL_MONK_SOOTHING_MIST_VISUAL, true);
+                target->CastSpell(target, SPELL_MONK_SOOTHING_MIST_VISUAL, true);
 
-                if (Player* _player = GetCaster()->ToPlayer())
+                if (auto _player = caster->ToPlayer())
                 {
-                    if (Unit* target = GetTarget())
+                    std::list<Player*> playerList;
+                    std::list<Creature*> statueList;
+                    target->GetPlayerListInGrid(playerList, 40.0f);
+                    _player->GetCreatureListWithEntryInGrid(statueList, SPELL_JADE_SERPENT_STATUE_NPC_ENTRY, 100.0f);
+
+                    if (playerList.empty() || statueList.empty())
+                        return;
+
+                    if (target->GetTypeId() == TYPEID_PLAYER)
+                        playerList.remove(target->ToPlayer());
+
+                    
+                    for (auto itr: statueList)
                     {
-                        std::list<Unit*> playerList;
-                        std::list<Creature*> statueList;
-
-                        _player->GetPartyMembers(playerList);
-
-                        if (playerList.size() > 1)
+                        if (itr->GetOwner() && itr->GetOwner()->GetGUID() == _player->GetGUID() && itr->IsSummon())
                         {
-                            playerList.remove(target);
-                            playerList.sort(Trinity::HealthPctOrderPred());
-                            playerList.resize(1);
-                        }
-
-                        _player->GetCreatureListWithEntryInGrid(statueList, 60849, 100.0f);
-
-                        // Remove other players jade statue
-                        for (std::list<Creature*>::iterator i = statueList.begin(); i != statueList.end();)
-                        {
-                            Unit* owner = (*i)->GetOwner();
-                            if (owner && owner == _player && (*i)->IsSummon())
+                            if (Creature* statue = itr)
                             {
-                                ++i;
-                                continue;
-                            }
-
-                            i = statueList.erase(i);
-                        }
-
-                        Creature* statue = nullptr;
-                        if (statueList.size() == 1)
-                            statue = *statueList.begin();
-
-                        if (statue != nullptr)
-                        {
-                            for (auto itr : playerList)
-                            {
-                                if ((statue->isPet() || statue->isGuardian()))
-                                    if (statue->GetOwner() && statue->GetOwner()->GetGUID() == _player->GetGUID())
-                                        statue->CastSpell(itr, GetSpellInfo()->Id, true);
+                                if (statue && !playerList.empty())
+                                {
+                                    playerList.sort(Trinity::HealthPctOrderPred());
+                                    if (Player* pTarget = playerList.back())
+                                        statue->CastSpell(pTarget, GetSpellInfo()->Id, true, 0, 0, _player->GetGUID());
+                                }
+                                break;
                             }
                         }
                     }
@@ -2370,68 +2361,15 @@ class spell_monk_soothing_mist : public SpellScriptLoader
             void HandleEffectPeriodic(AuraEffect const * /*aurEff*/)
             {
                 if (Unit* caster = GetCaster())
-                    if (Unit* target = GetTarget())
-                        // 30% to give 1 chi per tick
-                        if (roll_chance_i(30))
-                            caster->CastSpell(caster, SPELL_MONK_SOOTHING_MIST_ENERGIZE, true);
+                    if (GetTarget() && roll_chance_i(30))
+                        caster->CastSpell(caster, SPELL_MONK_SOOTHING_MIST_ENERGIZE, true);
             }
 
             void OnRemove(AuraEffect const * /*aurEff*/, AuraEffectHandleModes /*mode*/)
             {
-                if (Unit* caster = GetCaster())
-                {
+                if (GetCaster())
                     if (Unit* target = GetTarget())
-                    {
-                        if (Player* _player = GetCaster()->ToPlayer())
-                        {
-                            std::list<Unit*> playerList;
-                            std::list<Creature*> tempList;
-                            std::list<Creature*> statueList;
-                            Creature* statue;
-
-                            _player->GetPartyMembers(playerList);
-
-                            if (playerList.size() > 1)
-                            {
-                                playerList.sort(Trinity::HealthPctOrderPred());
-                                playerList.resize(1);
-                            }
-
-                            _player->GetCreatureListWithEntryInGrid(tempList, 60849, 100.0f);
-                            _player->GetCreatureListWithEntryInGrid(statueList, 60849, 100.0f);
-
-                            // Remove other players jade statue
-                            for (std::list<Creature*>::iterator i = tempList.begin(); i != tempList.end(); ++i)
-                            {
-                                Unit* owner = (*i)->GetOwner();
-                                if (owner && owner == _player && (*i)->IsSummon())
-                                    continue;
-
-                                statueList.remove((*i));
-                            }
-
-                            for (auto itr : playerList)
-                            {
-                                if (statueList.size() == 1)
-                                {
-                                    for (auto itrBis : statueList)
-                                        statue = itrBis;
-
-                                    if (statue && (statue->isPet() || statue->isGuardian()))
-                                    {
-                                        if (statue->GetOwner() && statue->GetOwner()->GetGUID() == _player->GetGUID())
-                                        {
-                                            statue->CastStop();
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (target->HasAura(SPELL_MONK_SOOTHING_MIST_VISUAL))
-                                target->RemoveAura(SPELL_MONK_SOOTHING_MIST_VISUAL);
-                        }
-                    }
-                }
+                        target->RemoveAura(SPELL_MONK_SOOTHING_MIST_VISUAL);
             }
 
             void Register()
