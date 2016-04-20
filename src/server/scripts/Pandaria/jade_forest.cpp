@@ -1809,6 +1809,8 @@ public:
     }
 };
 
+#define GOSSIP_WATER "Gracias $n. Dejanos empezar."
+
 class npc_the_pearlfin_situation_q : public CreatureScript
 {
 public:
@@ -1842,6 +1844,9 @@ public:
             }
             player->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, gossip, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
         }
+		
+		if (player->GetQuestStatus(29894) == QUEST_STATUS_INCOMPLETE)
+		    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_WATER, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 2);
 
         player->SEND_GOSSIP_MENU(player->GetGossipTextId(creature), creature->GetGUID());
         return true;
@@ -1850,16 +1855,23 @@ public:
     bool OnGossipSelect(Player* player, Creature* creature, uint32 /*sender*/, uint32 action)
     {
         player->PlayerTalkClass->ClearMenus();
-        if (action == GOSSIP_ACTION_INFO_DEF + 1)
+        switch (action)
         {
+        case GOSSIP_ACTION_INFO_DEF + 1:
             creature->AI()->Talk(0);
             player->KilledMonsterCredit(creature->GetEntry());
             player->CLOSE_GOSSIP_MENU();
-        }
-        else if (action == GOSSIP_ACTION_TRADE)
+            break;
+        case GOSSIP_ACTION_INFO_DEF + 2:
+            creature->AI()->Talk(1);
+            player->KilledMonsterCredit(creature->GetEntry());
+            player->CLOSE_GOSSIP_MENU();
+            break;
+        case GOSSIP_ACTION_TRADE:
             player->GetSession()->SendListInventory(creature->GetGUID());
-
-        return false;
+            break;
+        }
+        return true;
     }
 };
 

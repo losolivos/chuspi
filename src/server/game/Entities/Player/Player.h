@@ -1130,6 +1130,7 @@ class Player final : public Unit, public GridObject<Player>
         bool m_forgetInListPlayers;
         uint8 m_fakeRace;
         uint8 m_realRace;
+        uint32 m_FakeMorph;
     public:
         typedef std::vector<uint64> fakePlayers;
         void SendChatMessage(const char *format, ...);

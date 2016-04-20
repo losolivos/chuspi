@@ -113,24 +113,24 @@ void Player::SetFakeRaceAndMorph()
                if (GetOTeam() == ALLIANCE)
                {
                        m_FakeMorph = getGender() == GENDER_MALE ? FAKE_M_TAUREN : FAKE_F_TAUREN;
-                       m_FakeRace = RACE_TAUREN;
+                       m_fakeRace = RACE_TAUREN;
                }
                else if (getGender() == GENDER_MALE) // HORDE PLAYER, ONLY HAVE MALE NELF ID
                {
                        m_FakeMorph = FAKE_M_NELF;
-                       m_FakeRace = RACE_NIGHTELF;
+                       m_fakeRace = RACE_NIGHTELF;
                }
                else
-                       m_FakeRace = GetOTeam() == ALLIANCE ? RACE_BLOODELF : RACE_HUMAN;
+                       m_fakeRace = GetOTeam() == ALLIANCE ? RACE_BLOODELF : RACE_HUMAN;
        }
        else if (getClass() == CLASS_SHAMAN && GetOTeam() == HORDE && getGender() == GENDER_FEMALE)
        {
                m_FakeMorph = FAKE_F_DRAENEI; // Female Draenei
-               m_FakeRace = RACE_DRAENEI;
+               m_fakeRace = RACE_DRAENEI;
        }
        else
        {
-               m_FakeRace = GetOTeam() == ALLIANCE ? RACE_BLOODELF : RACE_HUMAN;
+               m_fakeRace = GetOTeam() == ALLIANCE ? RACE_BLOODELF : RACE_HUMAN;
 
                if (GetOTeam() == HORDE)
                {
