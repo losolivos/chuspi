@@ -106,47 +106,33 @@ bool Player::SendRealNameQuery()
     return true;
 }
 
-void Player::SetFakeRaceAndMorph()
+uint32 _getRace(uint32 lel)
 {
-       if (getClass() == CLASS_DRUID)
-       {
-               if (GetOTeam() == ALLIANCE)
-               {
-                       m_FakeMorph = getGender() == GENDER_MALE ? FAKE_M_TAUREN : FAKE_F_TAUREN;
-                       m_fakeRace = RACE_TAUREN;
-               }
-               else if (getGender() == GENDER_MALE) // HORDE PLAYER, ONLY HAVE MALE NELF ID
-               {
-                       m_FakeMorph = FAKE_M_NELF;
-                       m_fakeRace = RACE_NIGHTELF;
-               }
-               else
-                       m_fakeRace = GetOTeam() == ALLIANCE ? RACE_BLOODELF : RACE_HUMAN;
-       }
-       else if (getClass() == CLASS_SHAMAN && GetOTeam() == HORDE && getGender() == GENDER_FEMALE)
-       {
-               m_FakeMorph = FAKE_F_DRAENEI; // Female Draenei
-               m_fakeRace = RACE_DRAENEI;
-       }
-       else
-       {
-               m_fakeRace = GetOTeam() == ALLIANCE ? RACE_BLOODELF : RACE_HUMAN;
+    switch (lel)
+    {
+        case RACE_HUMAN: return RACE_ORC;
+        case RACE_ORC: return RACE_HUMAN;
+        case RACE_DWARF: return RACE_UNDEAD_PLAYER;
+        case RACE_NIGHTELF: return RACE_TAUREN;
+        case RACE_UNDEAD_PLAYER: return RACE_DWARF;
+        case RACE_TAUREN: return RACE_NIGHTELF;
+        case RACE_GNOME: return RACE_TROLL;
+        case RACE_TROLL: return RACE_GNOME;
+        case RACE_GOBLIN: return RACE_WORGEN;
+        case RACE_BLOODELF: return RACE_DRAENEI;
+        case RACE_DRAENEI: return RACE_BLOODELF;
+        case RACE_WORGEN: return RACE_GOBLIN;
+        case RACE_PANDAREN_ALLI: return RACE_PANDAREN_HORDE;
+        case RACE_PANDAREN_HORDE: return RACE_PANDAREN_ALLI;
+        default: return 0;
+    }
 
-               if (GetOTeam() == HORDE)
-               {
-                       if (getGender() == GENDER_MALE)
-                               m_FakeMorph = 19723;
-                       else
-                               m_FakeMorph = 19724;
-               }
-               else
-               {
-                       if (getGender() == GENDER_MALE)
-                               m_FakeMorph = 20578;
-                       else
-                               m_FakeMorph = 20579;
-               }
-       }
+    return 0;
+};
+
+void Player::SetFakeRace()
+{
+    m_fakeRace = _getRace(getRace());
 }
 
 bool Player::SendBattleGroundChat(uint32 msgtype, std::string message)
@@ -182,17 +168,6 @@ bool Player::SendBattleGroundChat(uint32 msgtype, std::string message)
         return false;
 }
 
-void Player::MorphFit(bool value)
-{
-       if (!IsPlayingNative() && value)
-       {
-               SetDisplayId(GetFakeMorph());
-               SetNativeDisplayId(GetFakeMorph());
-       }
-       else
-               InitDisplayIds();
-}
-
 void Player::FitPlayerInTeam(bool action, Battleground* pBattleGround)
 {
     if (!pBattleGround)
@@ -208,8 +183,6 @@ void Player::FitPlayerInTeam(bool action, Battleground* pBattleGround)
         SetForgetBGPlayers(true);
     else
         SetForgetInListPlayers(true);
-		
-    MorphFit(action);
 
     if (pBattleGround && action)
         SendChatMessage("%s: You are playing for the %s in this battleground!", GetTeam() == ALLIANCE ? "|TInterface\\icons\\Achievement_pvp_a_a:25|t" : "|TInterface\\icons\\Achievement_pvp_h_h:25|t", GetTeam() == ALLIANCE ? "Alliance" : "Horde");

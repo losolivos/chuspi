@@ -1130,7 +1130,6 @@ class Player final : public Unit, public GridObject<Player>
         bool m_forgetInListPlayers;
         uint8 m_fakeRace;
         uint8 m_realRace;
-        uint32 m_FakeMorph;
     public:
         typedef std::vector<uint64> fakePlayers;
         void SendChatMessage(const char *format, ...);
@@ -1139,15 +1138,13 @@ class Player final : public Unit, public GridObject<Player>
         void DoForgetPlayersInBG(Battleground* battleground);
         uint8 getORace() const { return m_realRace; }
         void setORace() { m_realRace = GetByteValue(UNIT_FIELD_BYTES_0, 0); };
-        void SetFakeRaceAndMorph(); // SHOULD ONLY BE CALLED ON LOGIN
-        uint32 GetFakeMorph() { return m_FakeMorph; };
+        void SetFakeRace();
         uint8 getFRace() const { return m_fakeRace; }
         void SetForgetBGPlayers(bool value) { m_forgetBgPlayers = value; }
         bool ShouldForgetBGPlayers() { return m_forgetBgPlayers; }
         void SetForgetInListPlayers(bool value) { m_forgetInListPlayers = value; }
         bool ShouldForgetInListPlayers() { return m_forgetInListPlayers; }
         bool SendBattleGroundChat(uint32 msgtype, std::string message);
-        void MorphFit(bool value);
         bool IsPlayingNative() const { return GetTeam() == m_team; }
         uint32 GetOTeam() const { return m_team; }
         uint32 GetTeam() const { return m_bgData.bgTeam && GetBattleground() ? m_bgData.bgTeam : m_team; }
