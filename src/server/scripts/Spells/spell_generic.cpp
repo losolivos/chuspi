@@ -4332,7 +4332,13 @@ class spell_prof_alch_master_healing_potion : public SpellScriptLoader
 enum RequiredMixologySpells
 {
     SPELL_MIXOLOGY                      = 53042,
-    // Flasks
+    // Flasks MOP
+	SPELL_FLASK_OF_FALLING_LEAVES       = 105693,
+	SPELL_FLASK_OF_SPRING_BLOSSOMS      = 105689,
+	SPELL_FLASK_OF_THE_EARTH            = 105694,
+	SPELL_FLASK_OF_THE_WARM_SUN         = 105691,
+	SPELL_FLASK_OF_WINTERS_BITE         = 105696,
+	//OLD FLASKS
     SPELL_FLASK_OF_THE_FROST_WYRM       = 53755,
     SPELL_FLASK_OF_STONEBLOOD           = 53758,
     SPELL_FLASK_OF_ENDLESS_RAGE         = 53760,
@@ -4524,6 +4530,15 @@ public:
                     case SPELL_FLASK_OF_PURE_DEATH:
                     case SPELL_SHADOWPOWER_ELIXIR:
                         bonus = 23;
+                        break;
+                    case SPELL_FLASK_OF_SPRING_BLOSSOMS:
+                    case SPELL_FLASK_OF_THE_WARM_SUN:
+                    case SPELL_FLASK_OF_WINTERS_BITE:
+                        bonus = 320;
+                        break;
+                    case SPELL_FLASK_OF_FALLING_LEAVES:
+                    case SPELL_FLASK_OF_THE_EARTH:
+                        bonus = 480;
                         break;
                     case SPELL_ELIXIR_OF_MIGHTY_AGILITY:
                     case SPELL_FLASK_OF_DISTILLED_WISDOM:
