@@ -1809,7 +1809,7 @@ public:
     }
 };
 
-#define GOSSIP_WATER "Gracias $n. Dejanos empezar."
+#define GOSSIP_WATER "Gracias. Dejanos empezar."
 
 class npc_the_pearlfin_situation_q : public CreatureScript
 {
@@ -1864,7 +1864,7 @@ public:
             break;
         case GOSSIP_ACTION_INFO_DEF + 2:
             creature->AI()->Talk(1);
-            player->KilledMonsterCredit(creature->GetEntry());
+            player->CompleteQuest(29894);
             player->CLOSE_GOSSIP_MENU();
             break;
         case GOSSIP_ACTION_TRADE:
