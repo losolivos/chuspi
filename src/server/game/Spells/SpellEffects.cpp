@@ -8667,6 +8667,19 @@ void Spell::EffectCreateAreatrigger(SpellEffIndex effIndex)
 
             break;
         }
+		case 123986: // Chi Burst
+		{
+			Position chiburstStarPos;
+			Position chiburstEndPos;
+			float distance;
+			m_caster->GetPosition(&chiburstStarPos);
+
+			m_caster->GetNearPosition(chiburstEndPos, 24.0f, 0.0f);
+			distance = chiburstStarPos.GetExactDist(&chiburstEndPos);
+
+			areaTrigger->MovePosition(chiburstEndPos, distance, m_caster->GetOrientation());
+			break;
+		}
         default:
             break;
     }

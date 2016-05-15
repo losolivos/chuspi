@@ -4775,100 +4775,169 @@ class npc_glyph_of_decoy : public CreatureScript
         };
 };
 
-// Storm, Earth and Fire
-class npc_s_e_f : public CreatureScript
+/*######
+## npc_monk_spirit - 69791
+######*/
+
+enum eSpiritEntries
 {
-    public:
-        npc_s_e_f() : CreatureScript("npc_s_e_f") { }
+	NPC_STORM_SPIRIT = 69680,
+	NPC_EARTH_SPIRIT = 69792,
+	NPC_FIRE_SPIRIT = 69791
+};
 
-        CreatureAI *GetAI(Creature* pCreature) const
-        {
-            return new npc_s_e_fAI(pCreature);
-        }
+enum eSpiritEquips
+{
+	EQUIP_STORM_TWO_HANDS = 25197,
+	EQUIP_EARTH_STAFF = 86218,
+	EQUIP_FIRE_TWO_HANDS = 82224
+};
 
-        struct npc_s_e_fAI : public ScriptedAI
-        {
-            npc_s_e_fAI(Creature* pCreature) : ScriptedAI(pCreature)
-            {
-            }
+enum eSpiritActions
+{
+	ACTION_DESPAWN_SPIRIT
+};
 
-            enum _npcs
-            {
-                NPC_ENTRY_STORM = 69680,
-                NPC_ENTRY_EARTH = 69792,
-                NPC_ENTRY_FIRE = 69791
-            };
+enum eSpiritMoves
+{
+	MOVE_DESPAWN = 1
+};
 
-            enum _spells
-            {
-                SPELL_STORM_VISUAL = 138080,
-                SPELL_FIRE_VISUAL = 138081,
-                SPELL_EARTH_VISUAL = 138083,
-                SPELL_S_E_F_FLY = 138104,
-                SPELL_S_E_F = 137639
-            };
+const uint32 visualMorph[3] = { 138080, 138083, 138081 }; // Storm, Earth and Fire
 
-            void JustDied(Unit* killer)
-            {
-                if (Unit* owner = me->GetCharmerOrOwner())
-                    if (Aura* aura = owner->GetAura(SPELL_S_E_F))
-                    {
-                        if (aura->GetStackAmount() > 1)
-                            aura->SetStackAmount(aura->GetStackAmount() - 1);
-                        else
-                            aura->Remove();
-                    }
+class npc_monk_spirit : public CreatureScript
+{
+public:
+	npc_monk_spirit() : CreatureScript("npc_monk_spirit") { }
 
-                me->RemoveAllAuras();
-                me->DisappearAndDie();
-            }
+	struct npc_monk_spiritAI : public ScriptedAI
+	{
+		npc_monk_spiritAI(Creature* creature) : ScriptedAI(creature)
+		{
+			targetGuid = 0;
+		}
 
-            void EnterCombat(Unit* target)
-            {
-                target->IsValidAttackTarget(target);
-                if (!target->IsWithinMeleeRange(me))
-                    me->CastSpell(target, SPELL_S_E_F_FLY, true);
-            }
+		uint64 targetGuid;
 
-            void EnterEvadeMode()
-            {
-                me->DeleteThreatList();
-                me->CombatStop(true);
-                me->LoadCreaturesAddon();
-                me->SetLootRecipient(NULL);
-                me->ResetPlayerDamageReq();
-            }
+		void Reset()
+		{
+			Unit* owner = me->GetOwner();
+			if (!owner)
+				return;
 
-            void AfterSummon(Unit* summoner, Unit* target, uint32 spell)
-            {
-                if (Player* owner = summoner->ToPlayer())
-                {
-                    owner->CastSpell(me, 45204, true); // clone me
-                    switch (me->GetEntry())
-                    {
-                        case NPC_ENTRY_STORM:
-                        {
-                            me->AddAura(SPELL_STORM_VISUAL, me);
-                            break;
-                        }
-                        case NPC_ENTRY_FIRE:
-                        {
-                            me->AddAura(SPELL_FIRE_VISUAL, me);
-                            break;
-                        }
-                        case NPC_ENTRY_EARTH:
-                        {
-                            me->AddAura(SPELL_EARTH_VISUAL, me);
-                            break;
-                        }
-                    }
+			owner->CastSpell(me, 45204, true); // Clone Me!
+			owner->CastSpell(me, 41054, true); // Clone main hand
+			owner->CastSpell(me, 45205, true); // Clone off hand
 
-                    me->Attack(target, true);
-                    me->SetAttackTime(BASE_ATTACK, me->GetCharmerOrOwner()->GetAttackTime(BASE_ATTACK));
-                    me->setAttackTimer(BASE_ATTACK, me->GetCharmerOrOwner()->getAttackTimer(BASE_ATTACK));
-                }
-            }
-        };
+			switch (me->GetEntry())
+			{
+			case NPC_STORM_SPIRIT:
+				me->CastSpell(me, visualMorph[0], true);
+				SetEquipmentSlots(false, EQUIP_STORM_TWO_HANDS, EQUIP_STORM_TWO_HANDS, EQUIP_NO_CHANGE);
+				me->SetBaseWeaponDamage(BASE_ATTACK, MINDAMAGE, owner->GetWeaponDamageRange(BASE_ATTACK, MINDAMAGE));
+				me->SetBaseWeaponDamage(BASE_ATTACK, MAXDAMAGE, owner->GetWeaponDamageRange(BASE_ATTACK, MAXDAMAGE));
+				me->SetBaseWeaponDamage(OFF_ATTACK, MINDAMAGE, owner->GetWeaponDamageRange(OFF_ATTACK, MINDAMAGE) / 2);
+				me->SetBaseWeaponDamage(OFF_ATTACK, MAXDAMAGE, owner->GetWeaponDamageRange(OFF_ATTACK, MAXDAMAGE) / 2);
+				break;
+			case NPC_EARTH_SPIRIT:
+				me->CastSpell(me, visualMorph[1], true);
+				SetEquipmentSlots(false, EQUIP_EARTH_STAFF, EQUIP_NO_CHANGE, EQUIP_NO_CHANGE);
+				me->SetBaseWeaponDamage(BASE_ATTACK, MINDAMAGE, owner->GetWeaponDamageRange(BASE_ATTACK, MINDAMAGE));
+				me->SetBaseWeaponDamage(BASE_ATTACK, MAXDAMAGE, owner->GetWeaponDamageRange(BASE_ATTACK, MAXDAMAGE));
+				break;
+			case NPC_FIRE_SPIRIT:
+				me->CastSpell(me, visualMorph[2], true);
+				SetEquipmentSlots(false, EQUIP_FIRE_TWO_HANDS, EQUIP_FIRE_TWO_HANDS, EQUIP_NO_CHANGE);
+				me->SetBaseWeaponDamage(BASE_ATTACK, MINDAMAGE, owner->GetWeaponDamageRange(BASE_ATTACK, MINDAMAGE));
+				me->SetBaseWeaponDamage(BASE_ATTACK, MAXDAMAGE, owner->GetWeaponDamageRange(BASE_ATTACK, MAXDAMAGE));
+				me->SetBaseWeaponDamage(OFF_ATTACK, MINDAMAGE, owner->GetWeaponDamageRange(OFF_ATTACK, MINDAMAGE) / 2);
+				me->SetBaseWeaponDamage(OFF_ATTACK, MAXDAMAGE, owner->GetWeaponDamageRange(OFF_ATTACK, MAXDAMAGE) / 2);
+				break;
+			}
+		}
+
+		void SetGUID(uint64 guid, int32 data /*= 0*/)
+		{
+			targetGuid = guid;
+
+			if (Unit* victim = Unit::GetUnit(*me, targetGuid))
+			{
+				me->CastSpell(victim, 138104, true);    // Jump
+				me->CastSpell(me, 138130, true);
+				AttackStart(victim);
+			}
+		}
+
+		uint64 GetGUID(int32 data /*= 0*/)
+		{
+			return targetGuid;
+		}
+
+		void IsSummonedBy(Unit* summoner)
+		{
+			if (!summoner || summoner->GetTypeId() != TYPEID_PLAYER)
+				return;
+
+			summoner->CastSpell(me, 119051, true);
+			me->SetLevel(summoner->getLevel());
+			me->SetHealth(summoner->CountPctFromMaxHealth(10));
+			me->SetMaxHealth(summoner->CountPctFromMaxHealth(10));
+			me->SetFullHealth();
+		}
+
+		void DoAction(const int32 action)
+		{
+			switch (action)
+			{
+			case ACTION_DESPAWN_SPIRIT:
+			{
+				if (Unit* owner = me->GetOwner())
+				{
+					Aura* spirit = owner->GetAura(137639);
+
+					me->GetMotionMaster()->Clear();
+					me->GetMotionMaster()->MoveJump(owner->GetPositionX(), owner->GetPositionY(), owner->GetPositionZ(), 15.0f, 10.0f, me->GetOrientation(), MOVE_DESPAWN);
+					me->DespawnOrUnsummon();
+					owner->RemoveAuraFromStack(1);
+				}
+
+				break;
+			}
+			default:
+				break;
+			}
+		}
+
+		void KilledUnit(Unit* victim)
+		{
+			if (victim->GetGUID() == targetGuid)
+				DoAction(ACTION_DESPAWN_SPIRIT);
+		}
+
+		void MovementInform(uint32 type, uint32 id)
+		{
+			if (id == MOVE_DESPAWN)
+				me->DespawnOrUnsummon(500);
+		}
+
+		void UpdateAI(const uint32 diff)
+		{
+			if (targetGuid)
+			{
+				if (me->GetVictim() && me->GetVictim()->GetGUID() != targetGuid)
+					DoAction(0);
+				else if (!me->GetVictim())
+					DoAction(0);
+			}
+
+			DoMeleeAttackIfReady();
+		}
+	};
+
+	CreatureAI* GetAI(Creature* creature) const
+	{
+		return new npc_monk_spiritAI(creature);
+	}
 };
 
 // Terrorguard - 59000
@@ -4962,6 +5031,6 @@ void AddSC_npcs_special()
     new npc_force_of_nature();
     new npc_void_tendril();
     new npc_glyph_of_decoy();
-    new npc_s_e_f();
+    new npc_monk_spirit();
     new npc_terroguard();
 }

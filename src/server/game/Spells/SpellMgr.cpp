@@ -6402,12 +6402,12 @@ void SpellMgr::LoadSpellCustomAttr()
                 case 108287:// Totemic Projection
                     spellInfo->Effects[EFFECT_0].Effect = SPELL_EFFECT_DUMMY;
                     break;
-                case 137639:// Storm, Earth and Fire
-                    spellInfo->AttributesCu &= ~(SPELL_ATTR0_CU_NEGATIVE_EFF1|SPELL_ATTR0_CU_NEGATIVE_EFF0);
-                    break;
-                case 138130:// Storm, Earth and Fire (for spirits)
-                    spellInfo->Effects[0].Effect = 0;
-                    break;
+				case 137639:// Storm, Earth and Fire
+					spellInfo->AttributesCu &= ~(SPELL_ATTR0_CU_NEGATIVE_EFF1 | SPELL_ATTR0_CU_NEGATIVE_EFF0);
+					break;
+				case 138130:// Storm, Earth and Fire (for spirits)
+					spellInfo->Effects[0].Effect = 0;
+					break;
                 case 135299:// Ice Trap (snare)
                 case 140023:// Ring of Peace (dummy)
                     spellInfo->DurationEntry = sSpellDurationStore.LookupEntry(285); // 1s
@@ -7399,6 +7399,7 @@ void SpellMgr::LoadSpellCustomAttr()
                 case 102359:// Mass Entanglement
                 case 82691: // Ring of Frost
                     spellInfo->AttributesEx5 &= ~SPELL_ATTR5_SINGLE_TARGET_SPELL;
+					spellInfo->AttributesEx |= SPELL_ATTR1_CANT_BE_REFLECTED;
                     break;
                 case 33763: // Lifebloom
                 case 102355:// Faerie Swarm

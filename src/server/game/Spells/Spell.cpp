@@ -6037,12 +6037,14 @@ void Spell::TakePower()
     if (m_CastItem || m_triggeredByAuraSpell)
         return;
 
-    // Don't take power if the spell is cast while .cheat power is enabled.
-    if (m_caster->GetTypeId() == TYPEID_PLAYER)
-    {
-        if (m_caster->ToPlayer()->GetCommandStatus(CHEAT_POWER))
-            return;
-    }
+	// Don't take power if the spell is cast while .cheat power is enabled.
+	if (m_caster->GetTypeId() == TYPEID_PLAYER)
+	{
+		if (m_caster->ToPlayer()->GetCommandStatus(CHEAT_POWER))
+			return;
+	}
+	else if (m_caster->GetEntry() == 69680 || m_caster->GetEntry() == 69792 || m_caster->GetEntry() == 69791)
+		return;
 
     Powers powerType = Powers(m_spellPowerData->PowerType);
     bool hit = true;
