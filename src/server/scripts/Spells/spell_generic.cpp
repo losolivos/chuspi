@@ -3938,35 +3938,58 @@ public:
     }
 };
 
-// Windsong Enchantment- 104561
-class spell_gen_ench_windsong final : public SpellScriptLoader
+enum windsongs_effects
 {
-    class script_impl final : public AuraScript
-    {
-        PrepareAuraScript(script_impl)
+	WINDSONG_HASTE = 104423,
+	WINDSONG_CRIT = 104509,
+	WINDSONG_MASTERY = 104510
+};
 
-        void OnProc(AuraEffect const *, ProcEventInfo &eventInfo)
-        {
-            PreventDefaultAction();
-            uint32 enchantment_proc[3] = { 104423, 104509, 104510 };
-            GetTarget()->CastSpell(GetTarget(), enchantment_proc[urand(0, 2)], true);
-        }
-
-        void Register() final
-        {
-            OnEffectProc += AuraEffectProcFn(script_impl::OnProc, EFFECT_0, SPELL_AURA_DUMMY);
-        }
-    };
-
+class spell_gen_windsong : public SpellScriptLoader
+{
 public:
-    spell_gen_ench_windsong()
-        : SpellScriptLoader("spell_gen_ench_windsong")
-    { }
+	spell_gen_windsong() : SpellScriptLoader("spell_gen_windsong") { }
 
-    AuraScript * GetAuraScript() const final
-    {
-        return new script_impl;
-    }
+	class spell_gen_windsong_SpellScript : public SpellScript
+	{
+		PrepareSpellScript(spell_gen_windsong_SpellScript);
+
+		void HandleOnHit()
+		{
+			if (!GetCaster())
+				return;
+
+			if (!GetHitUnit())
+				return;
+
+			if (Player* _player = GetCaster()->ToPlayer())
+			{
+				uint8 random = urand(1, 3);
+				switch (random)
+				{
+				case 1:
+					_player->AddAura(WINDSONG_HASTE, _player);
+					break;
+				case 2:
+					_player->AddAura(WINDSONG_CRIT, _player);
+					break;
+				case 3:
+					_player->AddAura(WINDSONG_MASTERY, _player);
+					break;
+				}
+			}
+		}
+
+		void Register()
+		{
+			OnHit += SpellHitFn(spell_gen_windsong_SpellScript::HandleOnHit);
+		}
+	};
+
+	SpellScript* GetSpellScript() const
+	{
+		return new spell_gen_windsong_SpellScript();
+	}
 };
 
 // Dancing Steel Enchantment - 118333
@@ -4332,7 +4355,15 @@ class spell_prof_alch_master_healing_potion : public SpellScriptLoader
 enum RequiredMixologySpells
 {
     SPELL_MIXOLOGY                      = 53042,
-    // Flasks MOP
+	// MoP Elixir
+	SPELL_ELIXIR_OF_MINORS              = 105687,
+	SPELL_ELIXIR_OF_PEACE               = 105685,
+	SPELL_ELIXIR_OF_PERFECTION          = 105686,
+	SPELL_ELIXIR_OF_THE_RAPIDS          = 105684,
+	SPELL_ELIXIR_OF_WEAPONRY            = 105683,
+	SPELL_MAD_HOZEN_ELIXIR              = 105682,
+	SPELL_MANTID_ELIXIR                 = 105681,
+	SPELL_MONK_ELIXIR                   = 105688,
 	SPELL_FLASK_OF_FALLING_LEAVES       = 105693,
 	SPELL_FLASK_OF_SPRING_BLOSSOMS      = 105689,
 	SPELL_FLASK_OF_THE_EARTH            = 105694,
@@ -4531,6 +4562,31 @@ public:
                     case SPELL_SHADOWPOWER_ELIXIR:
                         bonus = 23;
                         break;
+                    // mop
+                    case SPELL_ELIXIR_OF_MINORS:
+                        bonus = 220;
+                        break;
+                    case SPELL_ELIXIR_OF_PEACE:
+                        bonus = 220;
+                        break;
+                    case SPELL_ELIXIR_OF_PERFECTION:
+                        bonus = 220;
+                        break;
+                    case SPELL_ELIXIR_OF_THE_RAPIDS:
+                        bonus = 220;
+                        break;
+                    case SPELL_ELIXIR_OF_WEAPONRY:
+                        bonus = 220;
+                        break;
+                    case SPELL_MAD_HOZEN_ELIXIR:
+                        bonus = 220;
+                        break;
+                    case SPELL_MANTID_ELIXIR:
+                        bonus = 420;
+                        break;
+                    case SPELL_MONK_ELIXIR:
+                        bonus = 220;
+                        break;
                     case SPELL_FLASK_OF_SPRING_BLOSSOMS:
                     case SPELL_FLASK_OF_THE_WARM_SUN:
                     case SPELL_FLASK_OF_WINTERS_BITE:
@@ -4540,6 +4596,7 @@ public:
                     case SPELL_FLASK_OF_THE_EARTH:
                         bonus = 480;
                         break;
+					//mop
                     case SPELL_ELIXIR_OF_MIGHTY_AGILITY:
                     case SPELL_FLASK_OF_DISTILLED_WISDOM:
                     case SPELL_ELIXIR_OF_SPIRIT:
@@ -4794,7 +4851,7 @@ void AddSC_generic_spell_scripts()
     new spell_brewfest_ram_race_increase_duration();
     new spell_eject_all_passengers_script_effect();
     new spell_gen_tome_of_discovery();
-    new spell_gen_ench_windsong();
+    new spell_gen_windsong();
     new spell_gen_ench_dancing_steel();
     new spell_gen_ench_jade_spirit();
     new spell_gen_ench_jade_spirit_eff();
