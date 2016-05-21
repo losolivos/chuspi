@@ -2412,9 +2412,6 @@ TempSummon* Map::SummonCreature(uint32 entry, Position const& pos, SummonPropert
 
                         switch (entry)
                         {
-                            case 69680: // Storm, Earth and Fire
-                            case 69792:
-                            case 69791:
                             case 62261: // Decoy
                             case 416:
                             case 417:
