@@ -253,7 +253,7 @@ class boss_deathbringer_saurfang : public CreatureScript
             void Reset()
             {
                 _Reset();
-                me->SetReactState(REACT_DEFENSIVE);
+                me->SetReactState(REACT_AGGRESSIVE);
                 events.SetPhase(PHASE_COMBAT);
                 _frenzied = false;
                 me->SetPower(POWER_ENERGY, 0);
@@ -444,7 +444,7 @@ class boss_deathbringer_saurfang : public CreatureScript
                             break;
                         case EVENT_INTRO_ALLIANCE_6:
                             Talk(SAY_INTRO_ALLIANCE_6);
-                            Talk(SAY_INTRO_ALLIANCE_7);
+                            //Talk(SAY_INTRO_ALLIANCE_7);
                             DoCast(me, SPELL_GRIP_OF_AGONY);
                             break;
                         case EVENT_INTRO_HORDE_2:
@@ -462,6 +462,9 @@ class boss_deathbringer_saurfang : public CreatureScript
                             _introDone = true;
                             me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_IMMUNE_TO_PC);
                             me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
+                            me->SetReactState(REACT_AGGRESSIVE);
+                            if (Unit* target = me->FindNearestPlayer(100.0f))
+                                me->AI()->AttackStart(target);
                             break;
                         case EVENT_SUMMON_BLOOD_BEAST:
                             for (uint32 i10 = 0; i10 < 2; ++i10)
@@ -526,7 +529,6 @@ class boss_deathbringer_saurfang : public CreatureScript
                             teleporter->SetFlag(GAMEOBJECT_FLAGS, GO_FLAG_IN_USE);
                         }
 
-                        me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
                         me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
                         // controls what events will execute
                         events.SetPhase(uint32(action));
