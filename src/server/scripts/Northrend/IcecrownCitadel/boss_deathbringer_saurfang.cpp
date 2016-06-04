@@ -401,7 +401,7 @@ class boss_deathbringer_saurfang : public CreatureScript
             void SpellHit(Unit* caster, const SpellInfo* spell)
             {
                 if (spell->Id == SPELL_BLOOD_LINK_POWER)
-                    Aura *bloodPower = me->GetAura(SPELL_BLOOD_POWER))
+                    Aura *bloodPower = me->GetAura(SPELL_BLOOD_POWER);
 					if (bloodPower != NULL)
                         bloodPower->RecalculateAmountOfEffects();
             }
@@ -560,7 +560,7 @@ class boss_deathbringer_saurfang : public CreatureScript
                             ++_fallenChampionCastCount;
                             DoCast(target, SPELL_MARK_OF_THE_FALLEN_CHAMPION);
                             me->SetPower(POWER_ENERGY, 0);
-                            Aura *bloodPower = me->GetAura(SPELL_BLOOD_POWER))
+                            Aura *bloodPower = me->GetAura(SPELL_BLOOD_POWER);
 							if (bloodPower != NULL)
                                 bloodPower->RecalculateAmountOfEffects();
                         }
