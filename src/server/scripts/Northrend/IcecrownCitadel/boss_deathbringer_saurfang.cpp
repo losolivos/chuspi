@@ -398,14 +398,6 @@ class boss_deathbringer_saurfang : public CreatureScript
                 }
             }
 
-            void SpellHit(Unit* caster, const SpellInfo* spell)
-            {
-                if (spell->Id == SPELL_BLOOD_LINK_POWER)
-                    Aura *bloodPower = me->GetAura(SPELL_BLOOD_POWER);
-					if (bloodPower != NULL)
-                        bloodPower->RecalculateAmountOfEffects();
-            }
-
             void UpdateAI(uint32 const diff)
             {
                 if (!UpdateVictim() && !(events.IsInPhase(PHASE_INTRO_A) || events.IsInPhase(PHASE_INTRO_H)))
@@ -487,7 +479,7 @@ class boss_deathbringer_saurfang : public CreatureScript
                                 {
                                     if (Unit* unit = ObjectAccessor::GetUnit(*me, *itr))
                                     {
-                                        if (unit->isAlive() && unit->GetEntry() == NPC_BLOOD_BEAST)
+                                        if (unit->IsAlive() && unit->GetEntry() == NPC_BLOOD_BEAST)
                                         {
                                             unit->RemoveAurasDueToSpell(SPELL_SCENT_OF_BLOOD_TRIGGERED);
                                             unit->AddAura(SPELL_SCENT_OF_BLOOD_TRIGGERED, unit);
