@@ -3310,14 +3310,14 @@ void SpellMgr::LoadSpellCustomAttr()
                 spellInfo->MaxAffectedTargets = 1;
                 break;
             case 71484: // taunka deathbringers will
-                spellInfo->Effects[EFFECT_1].BasePoints = = 117;
-                spellInfo->Effects[EFFECT_0].BasePoints = = 117;
+                spellInfo->Effects[EFFECT_1].BasePoints = 117;
+                spellInfo->Effects[EFFECT_0].BasePoints = 117;
                 break;
             case 71492: // vykul deathbringers will
-                spellInfo->Effects[EFFECT_1].BasePoints = = 117;
+                spellInfo->Effects[EFFECT_1].BasePoints = 117;
                 break;
             case 71491: // enanos deathbringers will
-                spellInfo->Effects[EFFECT_1].BasePoints = = 117;
+                spellInfo->Effects[EFFECT_1].BasePoints = 117;
                 break;
             case 87239:
                 spellInfo->Effects[EFFECT_1].MiscValue = 3;
